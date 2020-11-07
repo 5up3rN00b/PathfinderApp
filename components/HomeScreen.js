@@ -11,6 +11,7 @@ export default class HomeScreen extends React.Component {
 
     state = {
         isAddMode: false,
+        addressList: [],
     }
     
     modalHandler = () => {
@@ -19,10 +20,25 @@ export default class HomeScreen extends React.Component {
         })
     }
 
-    cancelModal = () => {
+    // print = () => {
+        
+    //     this.setState({
+    //         addressList : [...this.state.addressList, { id: Math.random().toString(), value: 'pp'}],
+    //     },() => {
+    //         console.log(this.state.addressList)
+    //     });
+        
+    // }
+
+
+    saveModal = (list) => {
         this.setState({
+            addressList: list, //this doesnt work somehow
             isAddMode: false,
-        })
+        },() => {
+           console.log(this.state.addressList)
+        });
+        
     }
 
     render () {
@@ -35,7 +51,7 @@ export default class HomeScreen extends React.Component {
                     }
                 />
                 <Button title="openModal" onPress={this.modalHandler}/>
-                <ListModal visibility={this.state.isAddMode} cancel={this.cancelModal}/>
+                <ListModal insertlist={this.state.addressList} visibility={this.state.isAddMode} save = {this.saveModal}/>
             </View>
           );
     }

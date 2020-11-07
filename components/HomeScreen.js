@@ -68,8 +68,9 @@ export default class HomeScreen extends React.Component {
                         <Button title="logout" 
                         onPress={this.logout}
                     />
+                     <Button title="openModal" onPress={this.modalHandler}/>
                 </View>
-                <Button title="openModal" onPress={this.modalHandler}/>
+               
                 <ListModal insertlist={this.state.addressList} visibility={this.state.isAddMode} save = {this.saveModal}/>
             </View>
           );

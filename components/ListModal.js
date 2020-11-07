@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between', 
         alignItems: "center",
         alignContent: "center",
-        paddingTop: 300,
         flex: 1,
       },
 

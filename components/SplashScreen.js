@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-export default class Login extends React.Component {
+class SplashScreen extends React.Component {
     render () {
         return(
             <View style={styles.container}>
@@ -17,6 +17,8 @@ export default class Login extends React.Component {
           );
     }
 }
+
+export default SplashScreen;
 
 const styles = StyleSheet.create({
     container: {

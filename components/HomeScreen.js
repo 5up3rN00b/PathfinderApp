@@ -1,21 +1,16 @@
-import React, {Component, useState} from 'react';
 import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import React, {Component, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import  MapView, { Marker } from 'react-native-maps';
 
 import ListModal from './ListModal';
 
-
-
-import ListModal from './ListModal';
-
-
-
 export default class HomeScreen extends React.Component {
     logout = () =>{
         this.props.navigation.navigate('LoginScreen')
     }
+
     state = {
         isAddMode: false,
         addressList: [],
@@ -47,7 +42,6 @@ export default class HomeScreen extends React.Component {
         });
         
     }
-
     render () {
         return(
             <View style={styles.container}>
@@ -69,7 +63,6 @@ export default class HomeScreen extends React.Component {
                     title={'Title'}
                     description={'Describe this is cool'}
                 />
-
             </MapView>
             <View style={styles.logout}>
                         <Button title="logout" 
@@ -78,7 +71,6 @@ export default class HomeScreen extends React.Component {
                 </View>
                 <Button title="openModal" onPress={this.modalHandler}/>
                 <ListModal insertlist={this.state.addressList} visibility={this.state.isAddMode} save = {this.saveModal}/>
-
             </View>
           );
     }

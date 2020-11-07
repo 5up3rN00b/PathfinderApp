@@ -1,6 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+=======
+import React, {Component, useState} from 'react';
+import { StyleSheet, Text, View, Button} from 'react-native';
+>>>>>>> d5714fa6b7aac3de8a98755715de3640af5998ce
 =======
 import React, {Component, useState} from 'react';
 import { StyleSheet, Text, View, Button} from 'react-native';
@@ -13,12 +18,19 @@ import ListModal from './ListModal';
 
 
 
+import ListModal from './ListModal';
+
+
+
 export default class HomeScreen extends React.Component {
+<<<<<<< HEAD
 <<<<<<< HEAD
     logout = () =>{
         this.props.navigation.navigate('LoginScreen')
     }
 =======
+=======
+>>>>>>> d5714fa6b7aac3de8a98755715de3640af5998ce
 
     state = {
         isAddMode: false,
@@ -52,6 +64,9 @@ export default class HomeScreen extends React.Component {
         
     }
 
+<<<<<<< HEAD
+>>>>>>> d5714fa6b7aac3de8a98755715de3640af5998ce
+=======
 >>>>>>> d5714fa6b7aac3de8a98755715de3640af5998ce
     render () {
         return(
@@ -75,12 +90,17 @@ export default class HomeScreen extends React.Component {
                     description={'Describe this is cool'}
                 />
 <<<<<<< HEAD
+<<<<<<< HEAD
             </MapView>
             <View style={styles.logout}>
                         <Button title="logout" 
                         onPress={this.logout}
                     />
                 </View>
+=======
+                <Button title="openModal" onPress={this.modalHandler}/>
+                <ListModal insertlist={this.state.addressList} visibility={this.state.isAddMode} save = {this.saveModal}/>
+>>>>>>> d5714fa6b7aac3de8a98755715de3640af5998ce
 =======
                 <Button title="openModal" onPress={this.modalHandler}/>
                 <ListModal insertlist={this.state.addressList} visibility={this.state.isAddMode} save = {this.saveModal}/>

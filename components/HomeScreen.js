@@ -45,7 +45,6 @@ export default class HomeScreen extends React.Component {
                             longitude: -0.0877321
                         }}
                         title={'Title'}
-                        description={'Describe this is cool'}
                     />
                 </MapView>
                 <View style={styles.logout}>

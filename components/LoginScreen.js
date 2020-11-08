@@ -36,7 +36,15 @@ export default class LoginScreen extends React.Component {
 
   signin = () => {
     console.log(this.state.usernameInput + " " + this.state.passwordInput)
-    this.props.navigation.navigate('RegisterScreen')
+    postLogin("https://192.168.1.26/login.php", this.state.usernameInput, this.state.passwordInput, this.thenLogin);
+  }
+
+  thenLogin = (html) => {
+    if (html == "Logged in") {
+      this.props.navigation.navigate('HomeScreen')
+    } else {
+
+    }
   }
 
 
@@ -93,6 +101,20 @@ export default class LoginScreen extends React.Component {
   }
 
 
+}
+
+async function postLogin(url, email, password, then) {
+  // const url = 'https://www.compcs.codes';
+  const response = await fetch(url, {
+    method: 'POST',
+    body: "email=" + email + "&password=" + password
+  });
+
+  const html = await response.html();
+
+  then(html);
+
+  // console.log(html);
 }
 
 const styles = StyleSheet.create({

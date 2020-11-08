@@ -1,14 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component, useState} from 'react';
 import {render} from 'react-dom';
+import DraggableFlatList from "react-native-draggable-flatlist";
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
 ;
+
+// const exampleData = [...Array(20)].map((d, index) => ({
+//   key: `item-${index}`, // For example only -- don't use index as your key!
+//   label: index,
+//   backgroundColor: `rgb(${Math.floor(Math.random() * 255)}, ${index *
+//     5}, ${132})`
+// }));
+
 
 export default class ListModal extends Component {
 
     state = {
         enteredText: '',
-        list: this.props.insertlist,
+        data: [],
+        // data: exampleData,
+        count:0,
     }
 
 
@@ -22,27 +33,54 @@ export default class ListModal extends Component {
         // console.log(this.state.list)
     }
 
-    clearInput = () =>{
-        this.setState({
-            list: [...this.state.list, { id: Math.random().toString(), value: this.state.enteredText}],
-            enteredText: '',
-        }, () => {
-            this.print();
-        });
+
+    clearInput = () => {
+        post("https://nominatim.openstreetmap.org/search?q=" + this.state.enteredText + "&format=json&limit=1", this.updateList);
+    }
+
+    updateList = (json, index) => {
+      this.setState({
+        data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon, key: `item-${this.state.count}`}],
+        enteredText: '',
+        count: this.state.count+1,
+    }, () => {
+        this.print();
+    });
+      
     }
 
 
     removeGoalHandler = (goalID) => {
         this.setState({
-            list : this.state.list.filter((goal) => goal.id !== goalID),
+            data : this.state.data.filter((goal) => goal.id !== goalID),
         })
-        this.print()
+        // console.log("removed")
       }
-  
+
+      renderItem = ({ item, index, drag, isActive }) => {
+        return (
+          <TouchableOpacity 
+            onPress={this.removeGoalHandler.bind(this, item.id)}
+            style={{
+              
+              backgroundColor: isActive ? "blue" : item.backgroundColor,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onLongPress={drag}
+          >
+            <View style={styles.listItem}>
+              <Text>{item.value}</Text>
+            
+            </View>
+          </TouchableOpacity>
+
+        );
+      };
+
   render(){
     return (
       <View style={styles.inputContainer}>
-          <Modal visible={this.props.visibility}>
           <View style={styles.row}>
                 <TextInput
                     style = {styles.textstyle}
@@ -57,19 +95,25 @@ export default class ListModal extends Component {
                     onPress={this.clearInput}/>
                 </View>
             </View>
-            <FlatList
-                data={this.state.list} 
-                renderItem= {itemData =>
-                <TouchableOpacity onPress={this.removeGoalHandler.bind(this, itemData.item.id)}>
-                    <View style={styles.listItem}>
-                    <Text>{itemData.item.value}</Text>
-                    </View>
-                </TouchableOpacity>
-            }/> 
-            <View style={styles.row}>
-                <Button title="Save" onPress={this.props.save.bind(this, this.state.list)} style={styles.button}/>
+
+            <View style={{ flex: 1 }}>
+
+            <DraggableFlatList
+              data={this.state.data}
+              renderItem={this.renderItem}
+              keyExtractor={(item, index) => `draggable-item-${item.key}`}
+              onDragEnd={({ data }) => this.setState({ data })}
+           />
+
             </View>
-          </Modal>
+
+            <View style={styles.row}>
+                <Button title="Save" onPress={() =>
+                        this.props.navigation.navigate('HomeScreen')
+                    } style={styles.button}/>
+
+                  {/* Doesnt actually save it */}
+            </View>
       </View>
             
     )
@@ -77,13 +121,23 @@ export default class ListModal extends Component {
   }
 }
 
+async function post(url, then) {
+  // const url = 'https://www.compcs.codes';
+  const response = await fetch(url, {
+    method : 'POST'
+  });
+
+  const json = await response.json();
+
+  then(json);
+
+  // console.log(html);
+}
+
 const styles = StyleSheet.create({
     inputContainer:{
-        flexDirection: 'column',
-        justifyContent: 'space-between', 
-        alignItems: "center",
-        alignContent: "center",
         flex: 1,
+        backgroundColor: '#fff',
       },
 
   liststyle:{
@@ -92,19 +146,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     paddingHorizontal: 30,
-    flex: 1,
+  },
+  textstyle:{
+    height: 40,
+    width: 260,
+    borderColor: 'black',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    marginVertical: 10,
   },
   row:{
       flexDirection: 'row',
       justifyContent: "space-between",
-      height: 35,
+      height: 45,
       alignContent: "center",
-    alignSelf: "center",
-    alignItems: "center",
+        alignSelf: "center",
+     alignItems: "center",
       width: '90%',
+      marginVertical: 30,
   },
   button:{
       width: 100,
+      height: 40,
+      paddingHorizontal: 10,
+      marginVertical: 10,
   },
   listItem: {
     padding: 10,
@@ -112,7 +177,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     marginVertical: 10,
-    width: 250,
+    width: 200,
     alignContent: "center",
     alignSelf: "center",
     alignItems: "center"

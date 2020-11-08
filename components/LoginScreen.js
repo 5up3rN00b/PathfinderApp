@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PathFinderLogin from "../assets/PathFinderlogin.png";
@@ -12,6 +12,7 @@ import PersonIcon from "../assets/person.png";
 import UnlockIcon from "../assets/unlock.png";
 import PinkButton from "../assets/pinkbutton.png";
 import LoginInputField from "../assets/logininputfield.png";
+import registerPeachText from "../assets/register.png";
 import DraggableFlatList from "react-native-draggable-flatlist";
 
 
@@ -40,6 +41,8 @@ export default class LoginScreen extends React.Component {
   }
 
   thenLogin = (html) => {
+    console.log("Gayer: " + html);
+
     if (html == "Logged in") {
       this.props.navigation.navigate('HomeScreen')
     } else {
@@ -77,22 +80,48 @@ export default class LoginScreen extends React.Component {
           onChangeText={this.setPassword}
         />
 
-        <Image source={UnlockIcon} style={styles.unlockIconImage} />
+        {/* <Image source={UnlockIcon} style={styles.unlockIconImage} />
         <Image source={PinkButton} style={styles.pinkButton} />
-        <Image source={PeachLoginText} style={styles.peachLoginText} />
+        <Image source={PeachLoginText} style={styles.peachLoginText} /> */}
+
+        <ImageBackground source={PinkButton} style={styles.pinkButtonOne}>
+                </ImageBackground>
+                <Image source={registerPeachText} style={styles.registerPeachText} />
+                <Image source={PinkButton} style={styles.pinkButtonTwo} />
+                <Image source={PeachLoginText} style={styles.peachLoginText} />
 
 
         <View style={styles.bottom}>
 
-          <TouchableOpacity title="to home" style={styles.actualButton}
+          {/* <TouchableOpacity title="to home" style={styles.actualButton}
             //  onPress={() =>
             //     this.props.navigation.navigate('RegisterScreen')
             // }
             onPress={this.signin}
           >
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
         </View>
+
+        <TouchableOpacity
+                    title="to register" style={styles.registerButton}
+                    // onPress={() =>
+                    //     this.props.navigation.navigate('HomeScreen')}
+                    // >
+                    onPress={() =>
+                      this.props.navigation.navigate('RegisterScreen')
+                  }>
+                </TouchableOpacity>
+
+                <View style={styles.bottomRight}>
+                <TouchableOpacity title="to home" style={styles.actualButton}
+            //  onPress={() =>
+            //     this.props.navigation.navigate('RegisterScreen')
+            // }
+            onPress={this.signin}
+          > 
+          </TouchableOpacity>
+                </View>
 
       </View>
 
@@ -105,16 +134,21 @@ export default class LoginScreen extends React.Component {
 
 async function postLogin(url, email, password, then) {
   // const url = 'https://www.compcs.codes';
+  var data = new FormData()
+  data.append("email", email)
+  data.append("password", password)
+
   const response = await fetch(url, {
     method: 'POST',
-    body: "email=" + email + "&password=" + password
+    headers: {'Content-Type' : 'multipart/form-data'},
+    body: data
   });
 
-  const html = await response.html;
+  const html = await response.text();
 
   then(html);
 
-  // console.log(html);
+  console.log("Gayer: " + html);
 }
 
 const styles = StyleSheet.create({
@@ -125,11 +159,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  actualButton: {
-    width: 600 / 4,
+  registerButton: {
+    alignItems: "center",
+    padding: 10,
+    width: 500 / 4,
     height: 200 / 4,
-    borderColor: 'black'
-  },
+    position: "absolute",
+    top: 600,
+    bottom: 0,
+    left: 30,
+    right: 0,
+},
+
+actualButton: {
+    width: 500 / 4,
+    height: 200 / 4,
+},
+
+bottomRight: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 36,
+    marginLeft: 200,
+},
 
   bottom: {
     flex: 1,
@@ -261,24 +313,44 @@ const styles = StyleSheet.create({
     right: 0,
   },
 
-  pinkButton: {
-    width: 600 / 4,
-    height: 200 / 4,
+  pinkButtonTwo: {
+    width: 600 / 5,
+    height: 200 / 5,
     position: "absolute",
     top: 600,
     bottom: 0,
-    left: 130,
+    left: 230,
     right: 0,
-  },
+},
 
-  peachLoginText: {
-    width: 100,
-    height: 50,
+pinkButtonOne: {
+    width: 600 / 5,
+    height: 200 / 5,
     position: "absolute",
-    top: 602.5,
+    top: 600,
     bottom: 0,
-    left: 160,
+    left: 50,
     right: 0,
-  }
+},
+
+registerPeachText: {
+    width: 300 / 3,
+    height: 100 / 3,
+    position: "absolute",
+    top: 605,
+    bottom: 0,
+    left: 60,
+    right: 0,
+},
+
+peachLoginText: {
+    width: 100 / 1.5,
+    height: 50 / 1.5,
+    position: "absolute",
+    top: 605,
+    bottom: 0,
+    left: 260,
+    right: 0,
+},
 
 });

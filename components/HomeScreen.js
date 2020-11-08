@@ -15,7 +15,7 @@ export default class HomeScreen extends React.Component {
         return(
             <View style={styles.container}>
                 
-
+ 
                 <MapView style={styles.mapStyle}
                     initialRegion={{
                     latitude: 51.5078788,
@@ -32,15 +32,15 @@ export default class HomeScreen extends React.Component {
                         title={'Title'}
                         description={'Describe this is cool'}
                     />
-                    </MapView>
-                  <View style={styles.logout}>  {/* Might wanna make this a little lower*/}
+                    </MapView> 
+                   <View style={styles.logout}> 
                         <Button title="logout" 
                         onPress={this.logout}
                     />
                      <Button title="openModal" onPress={() =>
                         this.props.navigation.navigate('ListModal')
                     }/>
-                </View>
+                </View> 
             </View>
           );
     }

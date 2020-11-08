@@ -32,7 +32,7 @@ export default class ListModal extends Component {
 
   updateList = (json, index) => {
     this.setState({
-      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon, key: `item-${this.state.count}` }],
+      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon, key: `item-${Math.random()}` }],
       enteredText: '',
       count: this.state.count + 1,
     }, () => {
@@ -71,6 +71,19 @@ export default class ListModal extends Component {
   };
 
   render() {
+
+
+  const { navigation, route } = this.props;
+        
+        if (route.params != null && typeof route.params !== 'undefined') {
+            // console.log("Params list: " + route.params.list);
+
+            this.setState({
+                data : route.params.list
+            })
+            route.params = null;
+        }
+
     return (
       <View style={styles.inputContainer}>
         <View style={styles.row}>

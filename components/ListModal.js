@@ -123,6 +123,10 @@ export default class ListModal extends Component {
             <Text style={styles.text}>SAVE</Text>
           </TouchableOpacity>
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0172f69771303c5d0a3d10ffd9c40b8d70354a7a
           <TouchableOpacity 
             title="Sort"
             style={[styles.buttons, styles.button]} >
@@ -130,6 +134,11 @@ export default class ListModal extends Component {
           </TouchableOpacity>
 
 
+<<<<<<< HEAD
+=======
+>>>>>>> 025c2b1848a3097e7eb1bde43dc68d64d9357177
+=======
+>>>>>>> 0172f69771303c5d0a3d10ffd9c40b8d70354a7a
           {/* Doesnt actually save it */}
         </View>
       </View>

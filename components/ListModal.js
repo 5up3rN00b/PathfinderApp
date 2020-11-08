@@ -3,8 +3,6 @@ import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
 import DraggableFlatList from "react-native-draggable-flatlist";
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
-;
-
 
 export default class ListModal extends Component {
 
@@ -149,15 +147,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 10,
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    height: 45,
-    alignContent: "center",
-    alignSelf: "center",
-    alignItems: "center",
-    width: '90%',
-    marginVertical: 30,
+  row:{
+      flexDirection: 'row',
+      justifyContent: "space-between",
+      height: 20,
+      alignContent: "center",
+        alignSelf: "center",
+     alignItems: "center",
+      width: '90%',
+      marginVertical: 30,
   },
   button: {
     width: 100,
@@ -166,12 +164,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   listItem: {
-    padding: 10,
-    backgroundColor: '#ccc',
-    borderColor: 'black',
+  
+    padding: 15,
+    borderRadius: 30,
+    backgroundColor: '#F19C79',
+    borderColor: '#F19C79',
     borderWidth: 1,
     marginVertical: 10,
-    width: 200,
+    width: 350,
     alignContent: "center",
     alignSelf: "center",
     alignItems: "center"

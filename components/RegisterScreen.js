@@ -44,9 +44,13 @@ export default class RegisterScreen extends React.Component {
 
     toHome = () => {
         console.log(this.state.usernameInput + " " + this.state.passwordInput + " " + this.state.restaurantInput)
-        this.props.navigation.navigate('HomeScreen')
+        postRegister("http://9b6cc59b98ed.ngrok.io/register.php", this.state.usernameInput, this.state.passwordInput, this.state.restaurantInput, this.thenRegister);
     }
-
+    thenRegister = (html) => {
+        if (html == "Created user") {
+            this.props.navigation.navigate("LoginScreen");
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -114,6 +118,20 @@ export default class RegisterScreen extends React.Component {
         );
     }
 }
+
+async function postRegister(url, email, password, org, then) {
+    // const url = 'https://www.compcs.codes';
+    const response = await fetch(url, {
+      method: 'POST',
+      body: "email=" + email + "&password=" + password + "&org=" + org
+    });
+  
+    const html = await response.html();
+  
+    then(html);
+  
+    // console.log(html);
+  }
 
 const styles = StyleSheet.create({
     container: {

@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import{Router, Scene} from 'react-native-router-flux';
 import LoadingScene from '../scenes/LoadingScene';
-import AuthScene from '../scenes/AuthScene';
 
 class SplashScreen extends React.Component {
     constructor(props){
@@ -19,12 +18,8 @@ class SplashScreen extends React.Component {
                 <Router>
                 <Scene key = "root">
                   <Scene key ={"loading"} component={LoadingScene} initial={true} hideNavBar={true}></Scene>
-                  <Scene key ={"auth"} component={AuthScene} hideNavBar></Scene>
                 </Scene>
                 </Router>
-                
-                
-                
 
                 
                 {/* <Text>splash</Text>

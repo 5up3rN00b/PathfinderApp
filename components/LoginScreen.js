@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity, Input} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PathFinderLogin from "../assets/PathFinderlogin.png";
@@ -53,9 +53,9 @@ export default class LoginScreen extends React.Component {
                 <Image source={LoginColon} style = {styles.loginColon}/>
                 
                 <Image source={UsernameText} style = {styles.textUsernameImage}/>
-        
                 <Image source={LoginInputField} style = {styles.inputUsername}/>
                 <Image source={PersonIcon} style = {styles.personIconImage}/>
+
                 <Image source={PasswordText} style = {styles.textPasswordImage}/>
                 <Image source={LoginInputField} style = {styles.inputPassword}/>
                 <Image source={UnlockIcon} style = {styles.unlockIconImage}/>

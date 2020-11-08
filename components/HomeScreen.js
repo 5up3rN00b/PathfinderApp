@@ -58,14 +58,6 @@ export default class HomeScreen extends React.Component {
                           />)
                     })}
 
-                    <Marker
-                        coordinate=
-                        {{
-                            latitude: 51.5078788,
-                            longitude: -0.0877321
-                        }}
-                        title={'Title'}
-                    />
                     </MapView> 
                     <ImageBackground source={salmonHeader} style = {styles.header}/>
                 <Image source={cogs} style = {styles.cogs}/>

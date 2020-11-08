@@ -25,6 +25,7 @@ export default class ListModal extends Component {
         // console.log(this.state.list)
     }
 
+
     clearInput = () => {
         post("https://nominatim.openstreetmap.org/search?q=" + this.state.enteredText + "&format=json&limit=1", this.updateList);
     }
@@ -37,6 +38,7 @@ export default class ListModal extends Component {
     }, () => {
         this.print();
     });
+      
     }
 
 

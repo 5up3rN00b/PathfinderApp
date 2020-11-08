@@ -48,6 +48,7 @@ export default class ListModal extends Component {
     this.setState({
       data: this.state.data.filter((goal) => goal.id !== goalID),
     })
+    // console.log("removed")
   }
 
   renderItem = ({ item, index, drag, isActive }) => {
@@ -102,7 +103,7 @@ export default class ListModal extends Component {
 
         <View style={styles.row}>
           <Button title="Save" onPress={() =>
-            this.props.navigation.navigate('HomeScreen', {list : this.state.data})
+            this.props.navigation.navigate('HomeScreen')  
           } style={styles.button} />
 
           {/* Doesnt actually save it */}

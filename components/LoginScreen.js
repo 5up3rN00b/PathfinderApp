@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity, Input} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PathFinderLogin from "../assets/PathFinderlogin.png";
@@ -17,6 +17,27 @@ import DraggableFlatList from "react-native-draggable-flatlist";
 
 export default class LoginScreen extends React.Component {
 
+  state = {
+    usernameInput: '',
+    passwordInput: '',
+  }
+
+  setUsername = (input) =>{
+    this.setState({
+        usernameInput : input,
+    })
+}
+
+setPassword = (input) =>{
+    this.setState({
+        passwordInput : input,
+    })
+}
+
+signin = () => {
+  console.log(this.state.usernameInput + " " + this.state.passwordInput)
+  this.props.navigation.navigate('RegisterScreen')
+}
 
 
     renderItem = ({ item, index, drag, isActive }) => {
@@ -53,11 +74,27 @@ export default class LoginScreen extends React.Component {
                 <Image source={LoginColon} style = {styles.loginColon}/>
                 
                 <Image source={UsernameText} style = {styles.textUsernameImage}/>
-        
+                
                 <Image source={LoginInputField} style = {styles.inputUsername}/>
                 <Image source={PersonIcon} style = {styles.personIconImage}/>
+
+                <TextInput
+                    style = {styles.inputUsernameText}
+                    placeholder="Username"
+                    editable = {true}
+                    onChangeText = {this.setUsername}
+                />
+
                 <Image source={PasswordText} style = {styles.textPasswordImage}/>
                 <Image source={LoginInputField} style = {styles.inputPassword}/>
+
+                <TextInput
+                    style = {styles.inputPasswordText}
+                    placeholder="Password"
+                    editable = {true}
+                    onChangeText = {this.setPassword}
+                />
+
                 <Image source={UnlockIcon} style = {styles.unlockIconImage}/>
                 <Image source={PinkButton} style = {styles.pinkButton}/>
                 <Image source={PeachLoginText} style = {styles.peachLoginText}/>
@@ -66,11 +103,13 @@ export default class LoginScreen extends React.Component {
                     <View style={styles.bottom}>
                     
                     <TouchableOpacity title="to home" style={styles.actualButton} 
-                     onPress={() =>
-                        this.props.navigation.navigate('HomeScreen')
-                    }
+                    //  onPress={() =>
+                    //     this.props.navigation.navigate('RegisterScreen')
+                    // }
+                    onPress = {this.signin}
                     >
                     </TouchableOpacity>
+
             </View>
 
             </View>
@@ -93,6 +132,7 @@ const styles = StyleSheet.create({
     actualButton: {
         width: 600/4,
         height: 200/4,
+        borderColor: 'black'
     },
 
     bottom: {
@@ -127,6 +167,16 @@ const styles = StyleSheet.create({
         right: 0,
    },
 
+   inputPasswordText: {
+    width: 250,
+    height: 100/3,
+    position: "absolute",
+        top: 550,
+        bottom: 0,
+        left: 90,
+        right: 0,
+   },
+
    textUsernameImage: {
     width: 250/3,
     height: 60/3,
@@ -137,6 +187,8 @@ const styles = StyleSheet.create({
         right: 0,
    },
 
+   
+
    inputUsername: {
     width: 900/3,
     height: 100/3,
@@ -144,6 +196,16 @@ const styles = StyleSheet.create({
         top: 480,
         bottom: 0,
         left: 50,
+        right: 0,
+   },
+
+   inputUsernameText: {
+    width: 250,
+    height: 100/3,
+    position: "absolute",
+        top: 480,
+        bottom: 0,
+        left: 90,
         right: 0,
    },
 

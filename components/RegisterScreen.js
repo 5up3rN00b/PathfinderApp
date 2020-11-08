@@ -44,7 +44,7 @@ export default class RegisterScreen extends React.Component {
 
     toHome = () => {
         console.log(this.state.usernameInput + " " + this.state.passwordInput + " " + this.state.restaurantInput)
-        postRegister("http://192.168.1.26/register.php", this.state.usernameInput, this.state.passwordInput, this.state.restaurantInput, this.thenRegister);
+        postRegister("http://9b6cc59b98ed.ngrok.io/register.php", this.state.usernameInput, this.state.passwordInput, this.state.restaurantInput, this.thenRegister);
     }
 
     thenRegister = (html) => {

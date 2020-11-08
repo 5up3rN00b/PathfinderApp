@@ -1,26 +1,26 @@
 import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
-import React, {Component, useState} from 'react';
+import React, { Component, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import  MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import ListModal from './ListModal';
 
 export default class HomeScreen extends React.Component {
 
-    logout = () =>{
+    logout = () => {
         this.props.navigation.navigate('LoginScreen')
     }
-    
-    render () {
-        return(
+
+    render() {
+        return (
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}
                     initialRegion={{
-                    latitude: 51.5078788,
-                    longitude: -0.0877321,
-                    latitudeDelta: 0.009,
-                    longitudeDelta: 0.009
-                }}>
+                        latitude: 51.5078788,
+                        longitude: -0.0877321,
+                        latitudeDelta: 0.009,
+                        longitudeDelta: 0.009
+                    }}>
                     <Marker
                         coordinate=
                         {{
@@ -30,36 +30,36 @@ export default class HomeScreen extends React.Component {
                         title={'Title'}
                         description={'Describe this is cool'}
                     />
-                    </MapView> 
-                   <View style={styles.logout}> 
-                        <Button title="logout" 
+                </MapView>
+                <View style={styles.logout}>
+                    <Button title="logout"
                         onPress={this.logout}
                     />
-                     <Button title="openModal" onPress={() =>
+                    <Button title="openModal" onPress={() =>
                         this.props.navigation.navigate('ListModal')
-                    }/>
-                </View> 
+                    } />
+                </View>
             </View>
-          );
+        );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-    //   alignItems: 'center',
-    //   justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#fff',
+        //   alignItems: 'center',
+        //   justifyContent: 'center',
     },
     mapStyle: {
-      flex: 1,
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height,
+        flex: 1,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
     },
 
-    logout:{
+    logout: {
         position: 'absolute',
-        alignSelf:'flex-end',
+        alignSelf: 'flex-end',
         paddingTop: 20,
     }
-  });
+});

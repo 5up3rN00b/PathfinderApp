@@ -70,19 +70,60 @@ export default class ListModal extends Component {
     );
   };
 
+  sortHandler = () => {
+    var coords = {"coordinates": []}
+
+    var size = this.state.data.length
+    for (var i = 0; i < size; i++) {
+      var element = this.state.data[i]
+      console.log(element);
+      coords.coordinates.push({"latitude": element.latitude, "longitude": element.longitude})
+    }
+
+    console.log(coords)
+
+    postJson("http://9b6cc59b98ed.ngrok.io/calculate.php", coords, this.thenSort);
+  }
+
+  thenSort = (html) => {
+    var params = html.split("|");
+
+    console.log(params)
+    
+    var total = parseInt(params[0])
+    var totalTime = parseInt(params[1])
+    
+    for (var i = 1; i < total; i++) {
+      console.log(params[1 + i])
+    }
+
+    var copy = []
+
+    var indexes = params[total + 1].split("");
+    console.log(indexes)
+    for (var i = 0; i < total; i++) {
+      var index = parseInt(indexes[i])
+      copy[i] = this.state.data[index];
+    }
+
+    this.setState({
+      data : copy
+    })
+  }
+
   render() {
 
 
   const { navigation, route } = this.props;
         
-        if (route.params != null && typeof route.params !== 'undefined') {
-            // console.log("Params list: " + route.params.list);
+        // if (route.params != null && typeof route.params !== 'undefined') {
+        //     // console.log("Params list: " + route.params.list);
 
-            this.setState({
-                data : route.params.list
-            })
-            route.params = null;
-        }
+        //     this.setState({
+        //         data : route.params.list
+        //     })
+        //     route.params = null;
+        // }
 
     return (
       <View style={styles.inputContainer}>
@@ -126,7 +167,8 @@ export default class ListModal extends Component {
 
           <TouchableOpacity 
             title="Sort"
-            style={[styles.buttons, styles.button]} >
+            style={[styles.buttons, styles.button]}
+            onPress={this.sortHandler} >
             <Text style={styles.text}>SORT</Text>
           </TouchableOpacity>
 
@@ -149,6 +191,23 @@ async function post(url, then) {
   const json = await response.json();
 
   then(json);
+
+  // console.log(html);
+}
+
+async function postJson(url, json, then) {
+  // const url = 'https://www.compcs.codes';
+  const response = await fetch(url, {
+    method: 'POST',
+    header: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(json)
+  });
+
+  const html = await response.text();
+
+  then(html);
 
   // console.log(html);
 }

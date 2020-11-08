@@ -22,6 +22,10 @@ export default class HomeScreen extends React.Component {
         
     }
 
+    updateList = () => {
+        
+    }
+
     render() {
         const { navigation, route } = this.props;
         

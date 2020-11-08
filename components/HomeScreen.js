@@ -16,11 +16,11 @@ export default class HomeScreen extends React.Component {
         addressList: [],
     }
     
-    modalHandler = () => {
-        this.setState({
-            isAddMode: true,
-        })
-    }
+    // modalHandler = () => {
+    //     this.setState({
+    //         isAddMode: true,
+    //     })
+    // }
 
     // print = () => {
         
@@ -33,15 +33,15 @@ export default class HomeScreen extends React.Component {
     // }
 
 
-    saveModal = (list) => {
-        this.setState({
-            addressList: list, //this doesnt work somehow
-            isAddMode: false,
-        },() => {
-           console.log(this.state.addressList)
-        });
+    // saveModal = (list) => {
+    //     this.setState({
+    //         addressList: list, //this doesnt work somehow
+    //         isAddMode: false,
+    //     },() => {
+    //        console.log(this.state.addressList)
+    //     });
         
-    }
+    // }
     render () {
         return(
             <View style={styles.container}>
@@ -64,12 +64,14 @@ export default class HomeScreen extends React.Component {
                     description={'Describe this is cool'}
                 />
             </MapView>
-            <View style={styles.logout}>
+            <View style={styles.logout}>  {/* Might wanna make this a little lower*/}
                         <Button title="logout" 
                         onPress={this.logout}
                     />
-                     <Button title="openModal" onPress={this.modalHandler}/>
-                     <ListModal insertlist={this.state.addressList} visibility={this.state.isAddMode} save = {this.saveModal}/>
+                     <Button title="openModal" onPress={() =>
+                        this.props.navigation.navigate('ListModal')
+                    }/>
+                     {/* <ListModal insertlist={this.state.addressList} visibility={this.state.isAddMode} save = {this.saveModal}/> */}
                 </View>
             </View>
           );

@@ -40,6 +40,8 @@ export default class LoginScreen extends React.Component {
   }
 
   thenLogin = (html) => {
+    console.log("Gayer: " + html);
+
     if (html == "Logged in") {
       this.props.navigation.navigate('HomeScreen')
     } else {
@@ -105,16 +107,21 @@ export default class LoginScreen extends React.Component {
 
 async function postLogin(url, email, password, then) {
   // const url = 'https://www.compcs.codes';
+  var data = new FormData()
+  data.append("email", email)
+  data.append("password", password)
+
   const response = await fetch(url, {
     method: 'POST',
-    body: "email=" + email + "&password=" + password
+    headers: {'Content-Type' : 'multipart/form-data'},
+    body: data
   });
 
-  const html = await response.html;
+  const html = await response.text();
 
   then(html);
 
-  // console.log(html);
+  console.log("Gayer: " + html);
 }
 
 const styles = StyleSheet.create({

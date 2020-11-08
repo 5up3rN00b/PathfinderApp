@@ -25,15 +25,18 @@ export default class ListModal extends Component {
         // console.log(this.state.list)
     }
 
-    clearInput = () =>{
-        this.setState({
-            list: [...this.state.list, { id: this.state.count, value: this.state.enteredText}],
-            enteredText: '',
-            count: this.state.count+1,
-        }, () => {
-            this.print();
+    clearInput = () => {
+        post("https://nominatim.openstreetmap.org/search?q=" + this.state.enteredText + "&format=json&limit=1", this.updateList);
+    }
 
-        });
+    updateList = (json) => {
+      this.setState({
+        list: [...this.state.list, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon}],
+        enteredText: '',
+        count: this.state.count+1,
+    }, () => {
+        this.print();
+    });
     }
 
 
@@ -43,7 +46,7 @@ export default class ListModal extends Component {
         })
         this.print()
       }
-  
+
   render(){
     return (
       <View style={styles.inputContainer}>
@@ -65,11 +68,10 @@ export default class ListModal extends Component {
             <FlatList
                 data={this.state.list} 
                 renderItem= {({item, index, separators}) =>
-                <TouchableOpacity onPress={this.removeGoalHandler.bind(this, item.id)}  key = {item.id}>
+                <TouchableOpacity onPress={this.removeGoalHandler.bind(this, item.id)}>
                    
                     <View style={styles.listItem}>
                     <Text>{item.value}</Text>
-                    <Text>{index}</Text>
                     </View>
                 </TouchableOpacity>
             }
@@ -83,6 +85,19 @@ export default class ListModal extends Component {
     )
     
   }
+}
+
+async function post(url, then) {
+  // const url = 'https://www.compcs.codes';
+  const response = await fetch(url, {
+    method : 'POST'
+  });
+
+  const json = await response.json();
+
+  then(json);
+
+  // console.log(html);
 }
 
 const styles = StyleSheet.create({

@@ -3,7 +3,7 @@ import React, {Component, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import  MapView, { Marker } from 'react-native-maps';
-
+import ListModal from './ListModal';
 
 export default class HomeScreen extends React.Component {
 
@@ -14,8 +14,6 @@ export default class HomeScreen extends React.Component {
     render () {
         return(
             <View style={styles.container}>
-                
- 
                 <MapView style={styles.mapStyle}
                     initialRegion={{
                     latitude: 51.5078788,

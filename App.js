@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, Text, View, Button} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -10,12 +10,14 @@ import RegisterScreen from './components/RegisterScreen';
 import SplashScreen from './components/SplashScreen';
 import ListModal from './components/ListModal';
 
+
 const Stack = createStackNavigator();
 
 export default class App extends React.Component {
   render () {
     return(
-      <NavigationContainer>
+        
+        <NavigationContainer>
         <Stack.Navigator screenOptions={{
                 headerShown: false
               }}>
@@ -26,6 +28,15 @@ export default class App extends React.Component {
           <Stack.Screen name="ListModal" component={ListModal} />
         </Stack.Navigator>
       </NavigationContainer>
+      
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+});

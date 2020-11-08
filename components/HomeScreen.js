@@ -17,7 +17,8 @@ export default class HomeScreen extends React.Component {
     }
 
     logout = () => {
-        this.props.navigation.navigate('LoginScreen')
+        // this.props.navigation.navigate('LoginScreen')
+        console.log(this.state.list)
     }
 
     render() {
@@ -43,6 +44,23 @@ export default class HomeScreen extends React.Component {
                         latitudeDelta: 0.009,
                         longitudeDelta: 0.009
                     }}>
+
+                    {this.state.list.map((item, index) => {
+                        return(
+                    <Marker
+                        coordinate=
+                        {{
+                            latitude: item.latitude,
+                            longitude: item.longitude,
+                        }}
+                        title={item.value}
+                        description={'Describe this is cool'}
+                    />
+                        )
+                        
+                    })}
+
+                    
                     <Marker
                         coordinate=
                         {{
@@ -51,6 +69,7 @@ export default class HomeScreen extends React.Component {
                         }}
                         title={'Title'}
                     />
+
                     </MapView> 
                     <ImageBackground source={salmonHeader} style = {styles.header}/>
                 <Image source={cogs} style = {styles.cogs}/>
@@ -66,6 +85,7 @@ export default class HomeScreen extends React.Component {
                     </TouchableOpacity>
 
                         {/* <Button title="logout" 
+
                         onPress={this.logout}
                     /> */}
                     </View> 

@@ -79,7 +79,7 @@ export default class HomeScreen extends React.Component {
                     <View hide={true} style = {styles.openModal}>
                     <TouchableOpacity title="openModal" 
                      onPress={() =>
-                        this.props.navigation.navigate('ListModal')}
+                        this.props.navigation.navigate('ListModal', {list : this.state.list})}
                     >
                 <Text styles ={styles.openModal}></Text>
                     </TouchableOpacity>

@@ -123,6 +123,13 @@ export default class ListModal extends Component {
             <Text style={styles.text}>SAVE</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity 
+            title="Sort"
+            style={[styles.buttons, styles.button]} >
+            <Text style={styles.text}>SORT</Text>
+          </TouchableOpacity>
+
+
           {/* Doesnt actually save it */}
         </View>
       </View>

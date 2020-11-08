@@ -2,7 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal, Image, ImageBackground } from 'react-native';
+import locationsLogo from "../assets/Locations.png";
+import home from "../assets/home.png";
+import salmonHeader from "../assets/salmonHeader.png";
+
 
 export default class ListModal extends Component {
 
@@ -73,7 +77,12 @@ export default class ListModal extends Component {
   render() {
     return (
       <View style={styles.inputContainer}>
+        <ImageBackground source={salmonHeader} style = {styles.header}/>
+                <Image source={locationsLogo} style = {styles.locationsLogo}/>
+                <Image source={home} style = {styles.home}/>
         <View style={styles.row}>
+  
+
           <TextInput
             style={styles.textstyle}
             placeholder="Enter Address"
@@ -160,7 +169,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
      alignItems: "center",
       width: '90%',
-      marginVertical: 30,
+      marginVertical: 120,
   },
   text: {
     color: 'white',
@@ -192,6 +201,42 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center"
   },
+
+  header: {
+    flex: 10,
+    width: 1500/3,
+    height: 300/3,
+    marginTop: 0,
+    position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+},
+
+locationsLogo: {
+  flex: 5,
+  width: 740/3,
+  height: 190/3,
+  marginTop: 25,
+  position: "absolute",
+      top: 0,
+      bottom: 0,
+      left: 85,
+      right: 0,
+},
+
+home: {
+    flex: 1,
+    width: 100/2,
+    height: 100/2,
+    marginTop: 30,
+    position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 340,
+        right: 0,
+},
 
 });
 

@@ -5,20 +5,12 @@ import DraggableFlatList from "react-native-draggable-flatlist";
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
 ;
 
-// const exampleData = [...Array(20)].map((d, index) => ({
-//   key: `item-${index}`, // For example only -- don't use index as your key!
-//   label: index,
-//   backgroundColor: `rgb(${Math.floor(Math.random() * 255)}, ${index *
-//     5}, ${132})`
-// }));
-
 
 export default class ListModal extends Component {
 
   state = {
     enteredText: '',
     data: [],
-    // data: exampleData,
     count: 0,
   }
 
@@ -56,7 +48,6 @@ export default class ListModal extends Component {
     this.setState({
       data: this.state.data.filter((goal) => goal.id !== goalID),
     })
-    // console.log("removed")
   }
 
   renderItem = ({ item, index, drag, isActive }) => {

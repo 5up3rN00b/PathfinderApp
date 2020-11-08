@@ -7,11 +7,28 @@ import ListModal from './ListModal';
 
 export default class HomeScreen extends React.Component {
 
+    state = {
+        list : []
+    }
+
     logout = () => {
         this.props.navigation.navigate('LoginScreen')
     }
 
     render() {
+        const { navigation, route } = this.props;
+        
+        if (route.params != null && typeof route.params !== 'undefined') {
+            // console.log("Params list: " + route.params.list);
+
+            this.setState({
+                list : route.params.list
+            })
+            route.params = null;
+        }
+
+        console.log("Gay: " + this.state.list);
+
         return (
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}

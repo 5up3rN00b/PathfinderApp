@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, ImageBackground, TouchableOpacity, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import registerHere from "../assets/registerhere.png";
@@ -28,14 +28,29 @@ export default class RegisterScreen extends React.Component {
                 <Image source={UsernameText} style = {styles.textUsernameImage}/>
                 <Image source={RegisterInputField} style = {styles.inputUsername}/>
                 <Image source={PersonIcon} style = {styles.personIconImage}/>
+                <TextInput
+                    style = {styles.inputUsernameText}
+                    placeholder="Username"
+                    editable = {true}
+                />
 
                 <Image source={PasswordText} style = {styles.textPasswordImage}/>
                 <Image source={RegisterInputField} style = {styles.inputPassword}/>
                 <Image source={lock} style = {styles.lockIconImage}/>
+                <TextInput
+                    style = {styles.inputPasswordText}
+                    placeholder="Password"
+                    editable = {true}
+                />
 
                 <Image source={restaurantText} style = {styles.restaurantText}/>
                 <Image source={RegisterInputField} style = {styles.inputRestaurant}/>
                 <Image source={restaurantIcon} style = {styles.restaurantIcon}/>
+                <TextInput
+                    style = {styles.inputRestaurantText}
+                    placeholder="Restaurant"
+                    editable = {true}
+                />
                 
                 <ImageBackground source={PinkButton} style = {styles.pinkButtonOne}>
                 </ImageBackground>
@@ -202,6 +217,16 @@ const styles = StyleSheet.create({
             right: 0,
        },
 
+       inputPasswordText: {
+        width: 250,
+        height: 100/3,
+        position: "absolute",
+            top: 470,
+            bottom: 0,
+            left: 90,
+            right: 0,
+       },
+
        lockIconImage: {
         flex: 1,
         width: 75/4,
@@ -230,6 +255,16 @@ const styles = StyleSheet.create({
             top: 530,
             bottom: 0,
             left: 50,
+            right: 0,
+       }, 
+
+       inputRestaurantText:{
+        width: 250,
+        height: 100/3,
+        position: "absolute",
+            top: 530,
+            bottom: 0,
+            left: 90,
             right: 0,
        }, 
     
@@ -261,6 +296,16 @@ const styles = StyleSheet.create({
             top: 410,
             bottom: 0,
             left: 50,
+            right: 0,
+       },
+
+       inputUsernameText: {
+        width: 250,
+        height: 100/3,
+        position: "absolute",
+            top: 410,
+            bottom: 0,
+            left: 90,
             right: 0,
        },
 

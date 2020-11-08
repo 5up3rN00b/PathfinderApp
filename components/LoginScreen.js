@@ -53,11 +53,25 @@ export default class LoginScreen extends React.Component {
                 <Image source={LoginColon} style = {styles.loginColon}/>
                 
                 <Image source={UsernameText} style = {styles.textUsernameImage}/>
+                
                 <Image source={LoginInputField} style = {styles.inputUsername}/>
                 <Image source={PersonIcon} style = {styles.personIconImage}/>
 
+                <TextInput
+                    style = {styles.inputUsernameText}
+                    placeholder="Username"
+                    editable = {true}
+                />
+
                 <Image source={PasswordText} style = {styles.textPasswordImage}/>
                 <Image source={LoginInputField} style = {styles.inputPassword}/>
+
+                <TextInput
+                    style = {styles.inputPasswordText}
+                    placeholder="Password"
+                    editable = {true}
+                />
+
                 <Image source={UnlockIcon} style = {styles.unlockIconImage}/>
                 <Image source={PinkButton} style = {styles.pinkButton}/>
                 <Image source={PeachLoginText} style = {styles.peachLoginText}/>
@@ -67,10 +81,11 @@ export default class LoginScreen extends React.Component {
                     
                     <TouchableOpacity title="to home" style={styles.actualButton} 
                      onPress={() =>
-                        this.props.navigation.navigate('HomeScreen')
+                        this.props.navigation.navigate('RegisterScreen')
                     }
                     >
                     </TouchableOpacity>
+
             </View>
 
             </View>
@@ -93,6 +108,7 @@ const styles = StyleSheet.create({
     actualButton: {
         width: 600/4,
         height: 200/4,
+        borderColor: 'black'
     },
 
     bottom: {
@@ -127,6 +143,16 @@ const styles = StyleSheet.create({
         right: 0,
    },
 
+   inputPasswordText: {
+    width: 250,
+    height: 100/3,
+    position: "absolute",
+        top: 550,
+        bottom: 0,
+        left: 90,
+        right: 0,
+   },
+
    textUsernameImage: {
     width: 250/3,
     height: 60/3,
@@ -137,6 +163,8 @@ const styles = StyleSheet.create({
         right: 0,
    },
 
+   
+
    inputUsername: {
     width: 900/3,
     height: 100/3,
@@ -144,6 +172,16 @@ const styles = StyleSheet.create({
         top: 480,
         bottom: 0,
         left: 50,
+        right: 0,
+   },
+
+   inputUsernameText: {
+    width: 250,
+    height: 100/3,
+    position: "absolute",
+        top: 480,
+        bottom: 0,
+        left: 90,
         right: 0,
    },
 

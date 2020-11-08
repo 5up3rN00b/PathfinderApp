@@ -60,5 +60,6 @@ const styles = StyleSheet.create({
     logout:{
         position: 'absolute',
         alignSelf:'flex-end',
+        paddingTop: 20,
     }
   });

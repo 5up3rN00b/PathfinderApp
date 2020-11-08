@@ -5,12 +5,20 @@ import DraggableFlatList from "react-native-draggable-flatlist";
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
 ;
 
+// const exampleData = [...Array(20)].map((d, index) => ({
+//   key: `item-${index}`, // For example only -- don't use index as your key!
+//   label: index,
+//   backgroundColor: `rgb(${Math.floor(Math.random() * 255)}, ${index *
+//     5}, ${132})`
+// }));
+
 
 export default class ListModal extends Component {
 
     state = {
         enteredText: '',
-        list: this.props.insertlist,
+        data: [],
+        // data: exampleData,
         count:0,
     }
 
@@ -30,9 +38,9 @@ export default class ListModal extends Component {
         post("https://nominatim.openstreetmap.org/search?q=" + this.state.enteredText + "&format=json&limit=1", this.updateList);
     }
 
-    updateList = (json) => {
+    updateList = (json, index) => {
       this.setState({
-        list: [...this.state.list, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon}],
+        data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon, key: `item-${this.state.count}`}],
         enteredText: '',
         count: this.state.count+1,
     }, () => {
@@ -44,15 +52,35 @@ export default class ListModal extends Component {
 
     removeGoalHandler = (goalID) => {
         this.setState({
-            list : this.state.list.filter((goal) => goal.id !== goalID),
+            data : this.state.data.filter((goal) => goal.id !== goalID),
         })
-        this.print()
+        // console.log("removed")
       }
+
+      renderItem = ({ item, index, drag, isActive }) => {
+        return (
+          <TouchableOpacity 
+            onPress={this.removeGoalHandler.bind(this, item.id)}
+            style={{
+              
+              backgroundColor: isActive ? "blue" : item.backgroundColor,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onLongPress={drag}
+          >
+            <View style={styles.listItem}>
+              <Text>{item.value}</Text>
+            
+            </View>
+          </TouchableOpacity>
+
+        );
+      };
 
   render(){
     return (
       <View style={styles.inputContainer}>
-          <Modal visible={this.props.visibility}>
           <View style={styles.row}>
                 <TextInput
                     style = {styles.textstyle}
@@ -67,21 +95,25 @@ export default class ListModal extends Component {
                     onPress={this.clearInput}/>
                 </View>
             </View>
-            <FlatList
-                data={this.state.list} 
-                renderItem= {({item, index, separators}) =>
-                <TouchableOpacity onPress={this.removeGoalHandler.bind(this, item.id)}>
-                   
-                    <View style={styles.listItem}>
-                    <Text>{item.value}</Text>
-                    </View>
-                </TouchableOpacity>
-            }
-            /> 
-            <View style={styles.row}>
-                <Button title="Save" onPress={this.props.save.bind(this, this.state.list)} style={styles.button}/>
+
+            <View style={{ flex: 1 }}>
+
+            <DraggableFlatList
+              data={this.state.data}
+              renderItem={this.renderItem}
+              keyExtractor={(item, index) => `draggable-item-${item.key}`}
+              onDragEnd={({ data }) => this.setState({ data })}
+           />
+
             </View>
-          </Modal>
+
+            <View style={styles.row}>
+                <Button title="Save" onPress={() =>
+                        this.props.navigation.navigate('HomeScreen')
+                    } style={styles.button}/>
+
+                  {/* Doesnt actually save it */}
+            </View>
       </View>
             
     )

@@ -12,8 +12,39 @@ import PersonIcon from "../assets/person.png";
 import UnlockIcon from "../assets/unlock.png";
 import PinkButton from "../assets/pinkbutton.png";
 import LoginInputField from "../assets/logininputfield.png";
+import DraggableFlatList from "react-native-draggable-flatlist";
+
 
 export default class LoginScreen extends React.Component {
+
+
+
+    renderItem = ({ item, index, drag, isActive }) => {
+        return (
+          <TouchableOpacity
+            style={{
+              height: 100,
+              marginVertical: 10,
+              backgroundColor: isActive ? "blue" : item.backgroundColor,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onLongPress={drag}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "white",
+                fontSize: 32
+              }}
+            >
+              {item.label}
+              {}
+            </Text>
+          </TouchableOpacity>
+        );
+      };
+
     render () {
         return(
             <View style={styles.container}>
@@ -41,10 +72,14 @@ export default class LoginScreen extends React.Component {
                     >
                     </TouchableOpacity>
             </View>
+
             </View>
             
+
           );
     }
+
+    
 }
 
 const styles = StyleSheet.create({

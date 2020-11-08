@@ -111,6 +111,7 @@ export default class ListModal extends Component {
         </View>
 
         <View style={styles.row}>
+
           <TouchableOpacity title="Save" onPress={() =>
             this.props.navigation.navigate('HomeScreen')  
           } style={[styles.buttons, styles.button]} >

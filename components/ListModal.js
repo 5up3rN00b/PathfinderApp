@@ -111,16 +111,11 @@ export default class ListModal extends Component {
         </View>
 
         <View style={styles.row}>
-
-            
-          } style={styles.button} />
-
           <TouchableOpacity title="Save" onPress={() =>
-            this.props.navigation.navigate('HomeScreen', {list : this.state.data})    
+            this.props.navigation.navigate('HomeScreen')  
           } style={[styles.buttons, styles.button]} >
             <Text style={styles.text}>SAVE</Text>
           </TouchableOpacity>
-
 
           {/* Doesnt actually save it */}
         </View>

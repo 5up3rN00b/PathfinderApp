@@ -101,7 +101,7 @@ export default class ListModal extends Component {
 
         <View style={styles.row}>
           <Button title="Save" onPress={() =>
-            this.props.navigation.navigate('HomeScreen')  
+            this.props.navigation.navigate('HomeScreen', {list : this.state.data})  
           } style={styles.button} />
 
           {/* Doesnt actually save it */}

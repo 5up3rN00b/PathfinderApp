@@ -17,9 +17,6 @@ import DraggableFlatList from "react-native-draggable-flatlist";
 
 export default class LoginScreen extends React.Component {
 
-    state = {
-        data : exampleData,
-    }
 
 
     renderItem = ({ item, index, drag, isActive }) => {

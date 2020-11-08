@@ -8,12 +8,17 @@
     "eject": "expo eject"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.8.6",
     "@react-navigation/stack": "^5.12.3",
     "@use-expo/font": "^2.0.0",
     "expo": "^39.0.4",
     "expo-font": "~8.3.0",
+=======
+    "@react-navigation/native": "^5.8.6",
+    "expo": "~39.0.2",
+>>>>>>> 886947b5c656499ab0840d175dfdf1e55fcf83ec
     "expo-status-bar": "~1.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",

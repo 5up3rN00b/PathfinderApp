@@ -18,6 +18,7 @@ export default class HomeScreen extends React.Component {
 
     logout = () => {
         this.props.navigation.navigate('LoginScreen')
+        // console.log(this.state.list)
     }
 
     render() {

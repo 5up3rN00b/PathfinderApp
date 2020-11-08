@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Button, Dimensions, ImageBackground, Image, Tou
 import React, {Component, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import  MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import ListModal from './ListModal';
 import pathFinderTitle from "../assets/PathFinder.png";
 import cogs from "../assets/cogs.png";
@@ -12,20 +12,37 @@ import timeRectangle from "../assets/timerectangle.png";
 
 export default class HomeScreen extends React.Component {
 
-    logout = () =>{
+    state = {
+        list : []
+    }
+
+    logout = () => {
         this.props.navigation.navigate('LoginScreen')
     }
-    
-    render () {
-        return(
+
+    render() {
+        const { navigation, route } = this.props;
+        
+        if (route.params != null && typeof route.params !== 'undefined') {
+            // console.log("Params list: " + route.params.list);
+
+            this.setState({
+                list : route.params.list
+            })
+            route.params = null;
+        }
+
+        console.log("Gay: " + this.state.list);
+
+        return (
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}
                     initialRegion={{
-                    latitude: 51.5078788,
-                    longitude: -0.0877321,
-                    latitudeDelta: 0.009,
-                    longitudeDelta: 0.009
-                }}>
+                        latitude: 51.5078788,
+                        longitude: -0.0877321,
+                        latitudeDelta: 0.009,
+                        longitudeDelta: 0.009
+                    }}>
                     <Marker
                         coordinate=
                         {{
@@ -63,21 +80,22 @@ export default class HomeScreen extends React.Component {
                     
                 </View> 
             </View>
-          );
+        );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
+
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
     },
     mapStyle: {
-      flex: 1,
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height,
+        flex: 1,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
     },
 
     logout:{
@@ -152,3 +170,4 @@ const styles = StyleSheet.create({
             right: 0,
     },
   });
+

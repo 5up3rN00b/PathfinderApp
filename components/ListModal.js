@@ -32,7 +32,6 @@ export default class ListModal extends Component {
             count: this.state.count+1,
         }, () => {
             this.print();
-
         });
     }
 

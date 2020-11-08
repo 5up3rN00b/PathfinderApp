@@ -72,6 +72,8 @@ export default class LoginScreen extends React.Component {
 
         <Image source={PasswordText} style={styles.textPasswordImage} />
         <Image source={LoginInputField} style={styles.inputPassword} />
+        <Image source={UnlockIcon} style={styles.unlockIconImage} />
+
 
         <TextInput
           style={styles.inputPasswordText}
@@ -79,10 +81,6 @@ export default class LoginScreen extends React.Component {
           editable={true}
           onChangeText={this.setPassword}
         />
-
-        {/* <Image source={UnlockIcon} style={styles.unlockIconImage} />
-        <Image source={PinkButton} style={styles.pinkButton} />
-        <Image source={PeachLoginText} style={styles.peachLoginText} /> */}
 
         <ImageBackground source={PinkButton} style={styles.pinkButtonOne}>
                 </ImageBackground>

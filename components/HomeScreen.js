@@ -70,12 +70,16 @@ export default class HomeScreen extends React.Component {
                         title={'Title'}
                     />
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
                 </MapView>
                 <View style={styles.logout}>
                     <Button title="logout"
 =======
+=======
+
+>>>>>>> 9ce712bacb0867adf5e00b78c35351f37c3af1e0
                     </MapView> 
                     <ImageBackground source={salmonHeader} style = {styles.header}/>
                 <Image source={cogs} style = {styles.cogs}/>
@@ -91,7 +95,11 @@ export default class HomeScreen extends React.Component {
                     </TouchableOpacity>
 
                         {/* <Button title="logout" 
+<<<<<<< HEAD
 >>>>>>> 233dc7c2bf5a89f806e2a389717a71e51436172d
+=======
+
+>>>>>>> 9ce712bacb0867adf5e00b78c35351f37c3af1e0
                         onPress={this.logout}
                     /> */}
                     </View> 

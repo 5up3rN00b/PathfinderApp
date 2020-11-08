@@ -110,7 +110,7 @@ async function postLogin(url, email, password, then) {
     body: "email=" + email + "&password=" + password
   });
 
-  const html = await response.html();
+  const html = await response.html;
 
   then(html);
 

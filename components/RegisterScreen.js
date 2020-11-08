@@ -126,7 +126,7 @@ async function postRegister(url, email, password, org, then) {
       body: "email=" + email + "&password=" + password + "&org=" + org
     });
   
-    const html = await response.html();
+    const html = await response.html;
   
     then(html);
   

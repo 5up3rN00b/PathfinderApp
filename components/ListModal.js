@@ -12,7 +12,6 @@ import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity
 //     5}, ${132})`
 // }));
 
-
 export default class ListModal extends Component {
 
     state = {
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
   row:{
       flexDirection: 'row',
       justifyContent: "space-between",
-      height: 45,
+      height: 20,
       alignContent: "center",
         alignSelf: "center",
      alignItems: "center",
@@ -174,12 +173,14 @@ const styles = StyleSheet.create({
       marginVertical: 10,
   },
   listItem: {
-    padding: 10,
-    backgroundColor: '#ccc',
-    borderColor: 'black',
+  
+    padding: 15,
+    borderRadius: 30,
+    backgroundColor: '#F19C79',
+    borderColor: '#F19C79',
     borderWidth: 1,
     marginVertical: 10,
-    width: 200,
+    width: 350,
     alignContent: "center",
     alignSelf: "center",
     alignItems: "center"

@@ -82,9 +82,11 @@ export default class ListModal extends Component {
             onChangeText={this.inputHandler}
           />
           <View style={styles.button}>
-            <Button
+            <TouchableOpacity style={styles.buttons}
               title="Add!"
-              onPress={this.clearInput} />
+              onPress={this.clearInput}>
+                <Text style={styles.text}>ADD</Text>
+              </TouchableOpacity>
           </View>
         </View>
 
@@ -100,9 +102,11 @@ export default class ListModal extends Component {
         </View>
 
         <View style={styles.row}>
-          <Button title="Save" onPress={() =>
+          <TouchableOpacity title="Save" onPress={() =>
             this.props.navigation.navigate('HomeScreen')  
-          } style={styles.button} />
+          } style={[styles.buttons, styles.button]} >
+            <Text style={styles.text}>SAVE</Text>
+          </TouchableOpacity>
 
           {/* Doesnt actually save it */}
         </View>
@@ -140,6 +144,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   textstyle: {
+    borderRadius: 20,
     height: 40,
     width: 260,
     borderColor: 'black',
@@ -157,11 +162,22 @@ const styles = StyleSheet.create({
       width: '90%',
       marginVertical: 30,
   },
+  text: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
   button: {
     width: 100,
     height: 40,
     paddingHorizontal: 10,
     marginVertical: 10,
+  },
+  buttons:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    backgroundColor: '#F19C79',
+    borderRadius: 15,
   },
   listItem: {
   

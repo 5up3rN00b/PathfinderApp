@@ -17,6 +17,27 @@ import DraggableFlatList from "react-native-draggable-flatlist";
 
 export default class LoginScreen extends React.Component {
 
+  state = {
+    usernameInput: '',
+    passwordInput: '',
+  }
+
+  setUsername = (input) =>{
+    this.setState({
+        usernameInput : input,
+    })
+}
+
+setPassword = (input) =>{
+    this.setState({
+        passwordInput : input,
+    })
+}
+
+signin = () => {
+  console.log(this.state.usernameInput + " " + this.state.passwordInput)
+  this.props.navigation.navigate('RegisterScreen')
+}
 
 
     renderItem = ({ item, index, drag, isActive }) => {
@@ -61,6 +82,7 @@ export default class LoginScreen extends React.Component {
                     style = {styles.inputUsernameText}
                     placeholder="Username"
                     editable = {true}
+                    onChangeText = {this.setUsername}
                 />
 
                 <Image source={PasswordText} style = {styles.textPasswordImage}/>
@@ -70,6 +92,7 @@ export default class LoginScreen extends React.Component {
                     style = {styles.inputPasswordText}
                     placeholder="Password"
                     editable = {true}
+                    onChangeText = {this.setPassword}
                 />
 
                 <Image source={UnlockIcon} style = {styles.unlockIconImage}/>
@@ -80,9 +103,10 @@ export default class LoginScreen extends React.Component {
                     <View style={styles.bottom}>
                     
                     <TouchableOpacity title="to home" style={styles.actualButton} 
-                     onPress={() =>
-                        this.props.navigation.navigate('RegisterScreen')
-                    }
+                    //  onPress={() =>
+                    //     this.props.navigation.navigate('RegisterScreen')
+                    // }
+                    onPress = {this.signin}
                     >
                     </TouchableOpacity>
 

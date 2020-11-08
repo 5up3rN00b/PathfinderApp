@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, Image, ImageBackground, TouchableOpacity, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,6 +17,36 @@ import RegisterInputField from "../assets/logininputfield.png";
 import alreadyHaveAccount from "../assets/alreadyhaveaccount.png";
 
 export default class RegisterScreen extends React.Component {
+
+    state = {
+        usernameInput: '',
+        passwordInput: '',
+        restaurantInput: '',
+    }
+
+    setUsername = (input) =>{
+        this.setState({
+            usernameInput : input,
+        })
+    }
+
+    setPassword = (input) =>{
+        this.setState({
+            passwordInput : input,
+        })
+    }
+
+    setRestaurant = (input) =>{
+        this.setState({
+            restaurantInput : input,
+        })
+    }
+
+    toHome = () => {
+        console.log(this.state.usernameInput + " " + this.state.passwordInput + " " + this.state.restaurantInput)
+        this.props.navigation.navigate('HomeScreen')
+    }
+
     render () {
         return(
             <View style={styles.container}>
@@ -31,6 +61,7 @@ export default class RegisterScreen extends React.Component {
                 <TextInput
                     style = {styles.inputUsernameText}
                     placeholder="Username"
+                    onChangeText={this.setUsername}
                     editable = {true}
                 />
 
@@ -40,6 +71,7 @@ export default class RegisterScreen extends React.Component {
                 <TextInput
                     style = {styles.inputPasswordText}
                     placeholder="Password"
+                    onChangeText={this.setPassword}
                     editable = {true}
                 />
 
@@ -49,6 +81,7 @@ export default class RegisterScreen extends React.Component {
                 <TextInput
                     style = {styles.inputRestaurantText}
                     placeholder="Restaurant"
+                    onChangeText={this.setRestaurant}
                     editable = {true}
                 />
                 
@@ -62,9 +95,10 @@ export default class RegisterScreen extends React.Component {
                 
                 <TouchableOpacity
                 style={styles.registerButton}
-                onPress={() =>
-                    this.props.navigation.navigate('HomeScreen')}
-                >
+                // onPress={() =>
+                //     this.props.navigation.navigate('HomeScreen')}
+                // >
+                onPress = {this.toHome}>
                 </TouchableOpacity>
 
                 <View style={styles.bottomRight}>

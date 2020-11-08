@@ -35,7 +35,9 @@ export default class ListModal extends Component {
 
 
     clearInput = () => {
+      if (this.state.enteredText!=""){
         post("https://nominatim.openstreetmap.org/search?q=" + this.state.enteredText + "&format=json&limit=1", this.updateList);
+      }
     }
 
     updateList = (json, index) => {

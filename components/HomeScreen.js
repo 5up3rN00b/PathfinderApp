@@ -28,8 +28,9 @@ export default class HomeScreen extends React.Component {
     UNSAFE_componentWillMount = () => {
 		navigator.geolocation.getCurrentPosition(
 			position => {
-				const location = position;
-				this.setState({ location });
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+				this.setState({ latitude, longitude});
 			},
 			error => Alert.alert(error.message),
 			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -63,8 +64,9 @@ export default class HomeScreen extends React.Component {
         // Geolocation.setRNConfiguration(config);
         // Geolocation.getCurrentPosition(info => console.log(info));
         // console.log(this.state.latitude + " " + this.state.longitude);
-        const obj = this.state.location.coords;
-        console.log(obj);
+        // const obj = JSON.parse(this.state.location)
+        console.log(this.state.latitude + " " + this.state.longitude);
+        // console.log(JSON.parse(this.state.location))
         return (
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}
@@ -80,8 +82,8 @@ export default class HomeScreen extends React.Component {
               latitude: this.state.latitude,
               longitude: this.state.longitude,
             }}
-            title={'Title'}
-            description={'Describe this is cool'}
+            title={'Your Location'}
+            description={'This is where you are'}
           />
                     {this.state.list.map((object, index) => {
                         return(<Marker

@@ -80,6 +80,11 @@ export default class ListModal extends Component {
         <ImageBackground source={salmonHeader} style = {styles.header}/>
                 <Image source={locationsLogo} style = {styles.locationsLogo}/>
                 <Image source={home} style = {styles.home}/>
+                <TouchableOpacity title="back to home" onPress={() =>
+                this.props.navigation.navigate('HomeScreen')  
+                } style={styles.home} >
+                <Text style={styles.text}></Text>
+                </TouchableOpacity>
         <View style={styles.row}>
   
 
@@ -99,7 +104,7 @@ export default class ListModal extends Component {
           </View>
         </View>
 
-        <View style={{ flex: 1 }}>
+        <View style={styles.liststyle}>
 
           <DraggableFlatList
             data={this.state.data}
@@ -114,7 +119,7 @@ export default class ListModal extends Component {
 
           <TouchableOpacity title="Save" onPress={() =>
             this.props.navigation.navigate('HomeScreen')  
-          } style={[styles.buttons, styles.button]} >
+          } style={[styles.buttons, styles.save]} >
             <Text style={styles.text}>SAVE</Text>
           </TouchableOpacity>
 
@@ -147,11 +152,26 @@ const styles = StyleSheet.create({
   },
 
   liststyle: {
+    flex: 5,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: "center",
     alignContent: "center",
     paddingHorizontal: 30,
+    width: '100%',
+    height: '60%',
+    marginTop: 170,
+    position: "absolute",
+  },
+
+  save: {
+    flex: 10,
+    paddingHorizontal: 30,
+    width: 100,
+    height: 40,
+    marginTop: 230,
+    position: "absolute",
+    top: 0,
   },
   textstyle: {
     borderRadius: 20,

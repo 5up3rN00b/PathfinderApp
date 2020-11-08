@@ -17,8 +17,9 @@ export default class HomeScreen extends React.Component {
     }
 
     logout = () => {
-        this.props.navigation.navigate('LoginScreen')
-        // console.log(this.state.list)
+        // this.props.navigation.navigate('LoginScreen')
+        console.log(this.state.list)
+        
     }
 
     render() {
@@ -44,6 +45,19 @@ export default class HomeScreen extends React.Component {
                         latitudeDelta: 0.009,
                         longitudeDelta: 0.009
                     }}>
+                    
+                    {this.state.list.map((object, index) => {
+                        return(<Marker
+                            key={index}
+                            coordinate={{
+                              latitude: parseFloat(object.latitude),
+                              longitude: parseFloat(object.longitude)
+                            }}
+                            title={object.value}
+                            pinColor={"#ffd1dc"}
+                          />)
+                    })}
+
                     <Marker
                         coordinate=
                         {{

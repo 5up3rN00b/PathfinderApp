@@ -1,14 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component, useState} from 'react';
 import {render} from 'react-dom';
+import DraggableFlatList from "react-native-draggable-flatlist";
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
 ;
+
 
 export default class ListModal extends Component {
 
     state = {
         enteredText: '',
         list: this.props.insertlist,
+        count:0,
     }
 
 
@@ -24,10 +27,12 @@ export default class ListModal extends Component {
 
     clearInput = () =>{
         this.setState({
-            list: [...this.state.list, { id: Math.random().toString(), value: this.state.enteredText}],
+            list: [...this.state.list, { id: this.state.count, value: this.state.enteredText}],
             enteredText: '',
+            count: this.state.count+1,
         }, () => {
             this.print();
+
         });
     }
 
@@ -59,13 +64,16 @@ export default class ListModal extends Component {
             </View>
             <FlatList
                 data={this.state.list} 
-                renderItem= {itemData =>
-                <TouchableOpacity onPress={this.removeGoalHandler.bind(this, itemData.item.id)}>
+                renderItem= {({item, index, separators}) =>
+                <TouchableOpacity onPress={this.removeGoalHandler.bind(this, item.id)}  key = {item.id}>
+                   
                     <View style={styles.listItem}>
-                    <Text>{itemData.item.value}</Text>
+                    <Text>{item.value}</Text>
+                    <Text>{index}</Text>
                     </View>
                 </TouchableOpacity>
-            }/> 
+            }
+            /> 
             <View style={styles.row}>
                 <Button title="Save" onPress={this.props.save.bind(this, this.state.list)} style={styles.button}/>
             </View>
@@ -79,11 +87,8 @@ export default class ListModal extends Component {
 
 const styles = StyleSheet.create({
     inputContainer:{
-        flexDirection: 'column',
-        justifyContent: 'space-between', 
-        alignItems: "center",
-        alignContent: "center",
         flex: 1,
+        backgroundColor: '#fff',
       },
 
   liststyle:{
@@ -92,19 +97,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     paddingHorizontal: 30,
-    flex: 1,
+  },
+  textstyle:{
+    height: 40,
+    width: 260,
+    borderColor: 'black',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    marginVertical: 10,
   },
   row:{
       flexDirection: 'row',
       justifyContent: "space-between",
-      height: 35,
+      height: 45,
       alignContent: "center",
-    alignSelf: "center",
-    alignItems: "center",
+        alignSelf: "center",
+     alignItems: "center",
       width: '90%',
+      marginVertical: 30,
   },
   button:{
       width: 100,
+      height: 40,
+      paddingHorizontal: 10,
+      marginVertical: 10,
   },
   listItem: {
     padding: 10,
@@ -112,7 +128,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     marginVertical: 10,
-    width: 250,
+    width: 200,
     alignContent: "center",
     alignSelf: "center",
     alignItems: "center"

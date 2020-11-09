@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Button, Dimensions, ImageBackground, Image, Tou
 import React, {Component, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
+import MapView, { Marker, AnimatedRegion, PolyLine } from 'react-native-maps';
 import * as Permission from 'expo-permissions';
 import * as Location from 'expo-location';
 import ListModal from './ListModal';
@@ -76,6 +76,11 @@ export default class HomeScreen extends React.Component {
                         latitudeDelta: 0.009,
                         longitudeDelta: 0.009
                     }}>
+                <PolyLine
+                coordinates={this.state.list}
+                strokeColor="#ffd1dc" // fallback for when `strokeColors` is not supported by the map-provider
+		        strokeWidth={6}> 
+                </PolyLine>
                       <Marker
             coordinate=
             {{

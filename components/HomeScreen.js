@@ -21,10 +21,10 @@ export default class HomeScreen extends React.Component {
     state = {
         list : [],
         location: 0,
-        latitude: 0,
-        longitude: 0,
-        latdel: 0.5,
-        longdel: 0.5,
+        latitude: 37.5019983,
+        longitude: -122.014,
+        latdel: 0.35,
+        longdel: 0.35,
         latmax: -90,
         latmin: 90,
         longmax: -180,
@@ -41,53 +41,58 @@ export default class HomeScreen extends React.Component {
     }
     
 
-    findmaxmin = (obj) => {
-        // if (obj.latitude>this.state.latmax){
-        //     this.setState({
-        //         latmax : obj.latitude
-        //     }), () => {
-        //         this.print();
-        //       };
-        // }
-        // if (obj.latitude<this.state.latmin){
-        //     this.setState({
-        //         latmin : obj.latitude
-        //     })
-        // }
-        // if (obj.longitude>this.state.longmax){
-        //     this.setState({
-        //         longmax : obj.longitude
-        //     })
-        // }
-        // if (obj.longitude<this.state.longmin){
-        //     this.setState({
-        //         longmin : obj.longitude
-        //     })
-        // }
+    // findmaxmin = (obj) => {
+    //     if (obj.latitude>this.state.latmax){
+    //         this.setState({
+    //             latmax : obj.latitude
+    //         }), () => {
+    //             this.print();
+    //           };
+    //     }
+    //     if (obj.latitude<this.state.latmin){
+    //         this.setState({ 
+    //             latmin : obj.latitude
+    //         })
+    //     }
+    //     if (obj.longitude>this.state.longmax){
+    //         this.setState({
+    //             longmax : obj.longitude
+    //         })
+    //     }
+    //     if (obj.longitude<this.state.longmin){
+    //         this.setState({
+    //             longmin : obj.longitude
+    //         })
+    //     }
         
-        // if (this.state.longmax-this.state.longmin > 1){
-        //     this.setState({
-        //         longdel: this.state.longmax-this.state.longmin
-        //     }), () => {
-        //         this.print();
-        //       };
-        // }
-        // if (this.state.latmax-this.state.latmin > 1){
-        //     this.setState({
-        //         latdel: this.state.latmax-this.state.latmin
-        //     }), () => {
-        //         this.print();
-        //       };
-        // }
-        // this.setState({
-        //     longitude: obj.longitude,
-        //     latitude: obj.latitude
-        // }), () => {
-        //     this.print();
-        //   };
+    //     if (this.state.longmax-this.state.longmin > 1){
+    //         this.setState({
+    //             longdel: this.state.longmax-this.state.longmin
+    //         }), () => {
+    //             this.print();
+    //           };
+    //     }
+    //     if (this.state.latmax-this.state.latmin > 1){
+    //         this.setState({
+    //             latdel: this.state.latmax-this.state.latmin
+    //         }), () => {
+    //             this.print();
+    //           };
+    //     }
+    //     this.setState({
+    //         longitude: obj.longitude,
+    //         latitude: obj.latitude
+    //     })
+
+    //     if (this.state.longdel>4){
+    //         this.setState({
+    //             longdel : 4
+    //         })
+    //     }
             
-        
-    }
+    //     console.log(this.state.latmax + " " + this.state.latmin)
+    // }
+
 
     updateList = (l) => {
         console.log(l)
@@ -108,10 +113,6 @@ export default class HomeScreen extends React.Component {
             this.updateList(route.params.list)
         }
 
-        const obj = this.state.list
-        console.log(this.state.latdel + " " + this.state.longdel)
-
-        // this.state.list.forEach(this.findmaxmin)
 
 
 
@@ -120,8 +121,8 @@ export default class HomeScreen extends React.Component {
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}
                     initialRegion={{
-                        latitude: 37.6219983,
-                        longitude: -122.084,
+                        latitude: this.state.latitude,
+                        longitude: this.state.longitude,
                         latitudeDelta: this.state.latdel,
                         longitudeDelta: this.state.longdel
                     }}>
@@ -140,7 +141,7 @@ export default class HomeScreen extends React.Component {
                               longitude: parseFloat(object.longitude)
                             }}
                             title={object.value}
-                            pinColor={"#ffd1dc"}
+                             pinColor={"#ffd1dc"}
                           />)
                     })}
 

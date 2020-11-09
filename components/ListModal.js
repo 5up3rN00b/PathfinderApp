@@ -36,7 +36,7 @@ export default class ListModal extends Component {
 
   updateList = (json, index) => {
     this.setState({
-      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon, key: `item-${this.state.count}` }],
+      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: parseFloat(json[0].lat), longitude: parseFloat(json[0].lon), key: `item-${this.state.count}` }],
       enteredText: '',
       count: this.state.count + 1,
     }, () => {
@@ -118,7 +118,7 @@ export default class ListModal extends Component {
         <View style={styles.row}>
 
           <TouchableOpacity title="Save" onPress={() =>
-            this.props.navigation.navigate('HomeScreen')  
+            this.props.navigation.navigate('HomeScreen', {list : this.state.data})  
           } style={[styles.buttons, styles.save]} >
             <Text style={styles.text}>SAVE</Text>
           </TouchableOpacity>

@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import{Router, Scene} from 'react-native-router-flux';
 import LoadingScene from '../scenes/LoadingScene';
+import { LogBox } from 'react-native';
 
 class SplashScreen extends React.Component {
     constructor(props){
@@ -13,11 +14,16 @@ class SplashScreen extends React.Component {
       }, 5000);
     }
     render () {
+
+      LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
+
+
         return(
             <View style={styles.container}>
                 <Router>
                 <Scene key = "root">
-                  <Scene key ={"loading"} component={LoadingScene} initial={true} hideNavBar={true}></Scene>
+                  <Scene key ={"loading"} component={LoadingScene} initial={true} hideNavBar={true} ></Scene>
                 </Scene>
                 </Router>
 

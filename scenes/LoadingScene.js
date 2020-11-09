@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react'
+import React, {Component, useState, useNativeDriver} from 'react'
 import {View, Text, StyleSheet, Animated, Image} from 'react-native'
 import Logo from '../images/logo.png';
 import LogoText from '../images/logoText.png';
@@ -19,15 +19,18 @@ export default class LoadingScene extends Component{
                 tension: 10,
                 friction: 2,
                 duration: 1000,
+                
             }).start(),
 
             Animated.timing(LogoText, {
                 toValue :1,
                 duration: 1200,
+                useNativeDriver: true
             }),
         ]).start(() => 
             this.setState({
                 loadingSpinner: true,
+                
             })
         );
     }
@@ -41,11 +44,14 @@ export default class LoadingScene extends Component{
                         inputRange: [0, 1],
                         outputRange: [80, 0],
                     }),
+                    useNativeDriver: true
                 }}>
                     <Image source={Logo}/>
                 </Animated.View>
                 <Animated.View style={{
-                    opacity: this.state.LogoText
+                    opacity: this.state.LogoText,
+                    useNativeDriver: true
+                    
                 }}>
                     <Image source={LogoText}/>
                 </Animated.View>

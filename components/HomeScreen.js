@@ -11,6 +11,7 @@ import cogs from "../assets/cogs.png";
 import salmonHeader from "../assets/salmonHeader.png";
 import locationIcon from "../assets/locationicon.png";
 import timeRectangle from "../assets/timerectangle.png";
+import './Global.js'
 
 
 

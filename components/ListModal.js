@@ -66,7 +66,7 @@ export default class ListModal extends Component {
         onLongPress={drag}
       >
         <View style={styles.listItem}>
-          <Text>{item.value}</Text>
+          <Text style={styles.listText}>{item.value}</Text>
 
         </View>
       </TouchableOpacity>
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   listItem: {
-  
+    
     padding: 15,
     borderRadius: 30,
     backgroundColor: '#F19C79',
@@ -258,6 +258,10 @@ home: {
         left: 340,
         right: 0,
 },
+
+listText: {
+  color: 'white'
+}
 
 });
 

@@ -1,8 +1,8 @@
-import { Linking, StyleSheet, Text, View, Button, Dimensions, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import React, {Component, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MapView, { Polyline, Marker, AnimatedRegion } from 'react-native-maps';
+import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
 import * as Permission from 'expo-permissions';
 import * as Location from 'expo-location';
 import ListModal from './ListModal';
@@ -15,12 +15,8 @@ import timeRectangle from "../assets/timerectangle.png";
 
 
 export default class HomeScreen extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.updateList = this.updateList.bind(this)
-    }
     
+
     state = {
         list : [],
         location: 0,
@@ -97,25 +93,17 @@ export default class HomeScreen extends React.Component {
     // }
 
 
-    updateList = (l) => {
-        console.log(l)
-        this.setState({
-            list : l
-        })
-        console.log(this.state.list)
-    }
-
     render() {
         const { navigation, route } = this.props;
         
-        if (typeof this.props.route.params !== 'undefined') {
-            var list = this.props.route.params.list;
-        } else {
-            var list = []
+        if (route.params != null && typeof route.params !== 'undefined') {
+            // console.log("Params list: " + route.params.list);
+
+            this.setState({
+                list : route.params.list
+            })
+            route.params = null;
         }
-
-        console.log(list);
-
         return (
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}
@@ -125,29 +113,16 @@ export default class HomeScreen extends React.Component {
                         latitudeDelta: this.state.latdel,
                         longitudeDelta: this.state.longdel
                     }}>
-                        {list != [] &&
-                <MapView.Polyline
-                    coordinates={list}
-                    strokeColor="#7EC0EE"
-                    strokeWidth={7}
-                    />
-                        }
-                    {list.map((object, index) => {
-                        var color = "#ffd1dc";
-                        if (index == 0) {
-                            color = "#7EC0EE";
-                        }
 
-                        return(
-
-                        <Marker
+                    {this.state.list.map((object, index) => {
+                        return(<Marker
                             key={index}
                             coordinate={{
                               latitude: parseFloat(object.latitude),
                               longitude: parseFloat(object.longitude)
                             }}
                             title={object.value}
-                             pinColor={color}
+                             pinColor={"#ffd1dc"}
                           />)
                     })}
 
@@ -155,10 +130,15 @@ export default class HomeScreen extends React.Component {
                     <ImageBackground source={salmonHeader} style = {styles.header}/>
                 <Image source={cogs} style = {styles.cogs}/>
                 <Image source={locationIcon} style = {styles.locationIcon}/>
-                
                 <Image source={pathFinderTitle} style = {styles.pathFinderTitle}/>
-
-                   <View style={styles.logout}> 
+                <View style={styles.totaltime}>
+                        <Text style={styles.totaltimetext}>Total Time: </Text>
+                </View>
+                <TouchableOpacity style={styles.mapButton}>
+                    <Text style={styles.mapText}>Open In Google Maps</Text>
+                </TouchableOpacity>
+                <View style={styles.logout}> 
+                    
                    <TouchableOpacity title="logout" 
                      onPress={this.logout
                     }
@@ -175,7 +155,7 @@ export default class HomeScreen extends React.Component {
                     <View hide={true} style = {styles.openModal}>
                     <TouchableOpacity title="openModal" 
                      onPress={() =>
-                        this.props.navigation.navigate('ListModal')}
+                        this.props.navigation.navigate('ListModal', {list : this.state.list}, )}
                     >
                 <Text styles ={styles.openModal}></Text>
                     </TouchableOpacity>
@@ -191,8 +171,7 @@ const styles = StyleSheet.create({
 
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+
     },
     mapStyle: {
         flex: 1,
@@ -271,5 +250,38 @@ const styles = StyleSheet.create({
             left: 20,
             right: 0,
     },
+
+    totaltime: {
+        flex: 1,
+        marginTop: 600,
+        marginLeft: 25,
+        backgroundColor: '#F19C79',
+        borderRadius: 15,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        position: "absolute",
+    },
+
+    totaltimetext:{
+        fontSize: 15,
+        textAlign: 'left',
+        color: 'white'
+    },
+    mapButton: {
+        flex: 1,
+        marginTop: 550,
+        marginLeft: 25,
+        backgroundColor: '#F19C79',
+        borderRadius: 15,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        position: "absolute",
+    },
+
+    mapText: {
+        fontSize: 15,
+        textAlign: 'left',
+        color: 'white'
+    }
   });
 

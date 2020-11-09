@@ -75,6 +75,19 @@ export default class ListModal extends Component {
   };
 
   render() {
+
+
+  const { navigation, route } = this.props;
+        
+        if (route.params != null && typeof route.params !== 'undefined') {
+            // console.log("Params list: " + route.params.list);
+
+            this.setState({
+                data : route.params.list
+            })
+            route.params = null;
+        }
+
     return (
       <View style={styles.inputContainer}>
         <ImageBackground source={salmonHeader} style = {styles.header}/>
@@ -258,6 +271,11 @@ home: {
         left: 340,
         right: 0,
 },
+
+listText: {
+  color: 'white'
+}
+
 
 });
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput, ImageBackground, Linking } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PathFinderLogin from "../assets/PathFinderlogin.png";
@@ -56,7 +56,6 @@ export default class LoginScreen extends React.Component {
     })
 
   }
-
 
   render() {
     return (

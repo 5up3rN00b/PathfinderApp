@@ -137,8 +137,15 @@ export default class HomeScreen extends React.Component {
                 <Image source={cogs} style = {styles.cogs}/>
                 <Image source={locationIcon} style = {styles.locationIcon}/>
                 <Image source={pathFinderTitle} style = {styles.pathFinderTitle}/>
+                <View style={styles.totaltime}>
+                        <Text style={styles.totaltimetext}>Total Time: </Text>
+                </View>
 
-                   <View style={styles.logout}> 
+                <View style={styles.nextTime}>
+                        <Text style={styles.nextTimetext}>Time Until Next Stop: </Text>
+                </View>
+                <View style={styles.logout}> 
+                    
                    <TouchableOpacity title="logout" 
                      onPress={this.logout
                     }
@@ -171,8 +178,7 @@ const styles = StyleSheet.create({
 
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+
     },
     mapStyle: {
         flex: 1,
@@ -250,6 +256,38 @@ const styles = StyleSheet.create({
             bottom: 0,
             left: 20,
             right: 0,
+    },
+
+    totaltime: {
+        flex: 1,
+        marginTop: 550,
+        marginLeft: 25,
+        backgroundColor: 'white',
+        borderRadius: 15,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        position: "absolute",
+    },
+
+    totaltimetext:{
+        fontSize: 15,
+        textAlign: 'left',
+    },
+
+    nextTime: {
+        flex: 1,
+        marginTop: 600,
+        marginLeft: 25,
+        backgroundColor: 'white',
+        borderRadius: 15,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        position: "absolute",
+    }, 
+
+    nextTimetext:{
+        fontSize: 15,
+        textAlign: 'left',
     },
   });
 

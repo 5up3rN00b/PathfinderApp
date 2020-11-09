@@ -188,7 +188,7 @@ export default class HomeScreen extends React.Component {
 
                    <View style={styles.logout}> 
                    <TouchableOpacity title="logout" 
-                     onPress={this.props.navigation.navigate('LoginScreen')
+                     onPress={this.getGoogleMaps
                     }
                     >
                      <Text styles ={styles.logout}></Text>
@@ -299,37 +299,4 @@ const styles = StyleSheet.create({
             left: 20,
             right: 0,
     },
-    totaltime: {
-        flex: 1,
-        marginTop: 600,
-        marginLeft: 25,
-        backgroundColor: '#F19C79',
-        borderRadius: 15,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        position: "absolute",
-    },
-
-    totaltimetext:{
-        fontSize: 15,
-        textAlign: 'left',
-        color: 'white'
-    },
-    mapButton: {
-        flex: 1,
-        marginTop: 550,
-        marginLeft: 25,
-        backgroundColor: '#F19C79',
-        borderRadius: 15,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        position: "absolute",
-    },
-
-    mapText: {
-        fontSize: 15,
-        textAlign: 'left',
-        color: 'white'
-    }
   });
-

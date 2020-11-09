@@ -2,9 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal, Image, ImageBackground } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import HomeScreen from './HomeScreen';
+import salmonHeader from '../assets/salmonHeader.png';
+import locationsLogo from '../assets/Locations.png';
+import home from '../assets/home.png';
 
 export default class ListModal extends Component {
 
@@ -153,8 +156,20 @@ export default class ListModal extends Component {
         }
 
     return (
+      
+      
+      
       <View style={styles.inputContainer}>
+      <ImageBackground source={salmonHeader} style = {styles.header}/>
+                <Image source={locationsLogo} style = {styles.locationsLogo}/>
+                <Image source={home} style = {styles.home}/>
+                <TouchableOpacity title="back to home" onPress={() =>
+                this.props.navigation.navigate('HomeScreen')  
+                } style={styles.home} >
+                <Text style={styles.text}></Text>
+                </TouchableOpacity>
         <View style={styles.row}>
+          
           <TextInput
             style={styles.textstyle}
             placeholder="Enter Address"

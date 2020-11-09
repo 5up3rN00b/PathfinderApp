@@ -14,6 +14,7 @@ export default class ListModal extends Component {
     enteredText: '',
     data: [],
     count: 0,
+    
   }
 
 

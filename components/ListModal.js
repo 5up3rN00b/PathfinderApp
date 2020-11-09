@@ -165,7 +165,7 @@ export default class ListModal extends Component {
             <TouchableOpacity style={styles.buttons}
               title="Add!"
               onPress={this.clearInput}>
-                <Text style={styles.text}>ADD</Text>
+                <Text style={styles.listText}>ADD</Text>
               </TouchableOpacity>
           </View>
         </View>

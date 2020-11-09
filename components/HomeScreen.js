@@ -185,7 +185,12 @@ export default class HomeScreen extends React.Component {
                 <Image source={locationIcon} style = {styles.locationIcon}/>
                 
                 <Image source={pathFinderTitle} style = {styles.pathFinderTitle}/>
-
+                <View style={styles.totaltime}>
+                        <Text style={styles.totaltimetext}>Total Time: </Text>
+                </View>
+                <TouchableOpacity style={styles.mapButton}>
+                    <Text style={styles.mapText}>Open In Google Maps</Text>
+                </TouchableOpacity>
                    <View style={styles.logout}> 
                    <TouchableOpacity title="logout" 
                      onPress={this.getGoogleMaps
@@ -216,11 +221,8 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
     mapStyle: {
         flex: 1,
@@ -299,4 +301,37 @@ const styles = StyleSheet.create({
             left: 20,
             right: 0,
     },
+
+    totaltime: {
+        flex: 1,
+        marginTop: 600,
+        marginLeft: 25,
+        backgroundColor: '#F19C79',
+        borderRadius: 15,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        position: "absolute",
+    },
+
+    totaltimetext:{
+        fontSize: 15,
+        textAlign: 'left',
+        color: 'white'
+    },
+    mapButton: {
+        flex: 1,
+        marginTop: 550,
+        marginLeft: 25,
+        backgroundColor: '#F19C79',
+        borderRadius: 15,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        position: "absolute",
+    },
+
+    mapText: {
+        fontSize: 15,
+        textAlign: 'left',
+        color: 'white'
+    }
   });

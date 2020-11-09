@@ -11,7 +11,7 @@ import cogs from "../assets/cogs.png";
 import salmonHeader from "../assets/salmonHeader.png";
 import locationIcon from "../assets/locationicon.png";
 import timeRectangle from "../assets/timerectangle.png";
-import Geolocation from 'react-native-geolocation-service';
+
 
 
 export default class HomeScreen extends React.Component {
@@ -22,28 +22,69 @@ export default class HomeScreen extends React.Component {
         location: 0,
         latitude: 0,
         longitude: 0,
+        latdel: 0.5,
+        longdel: 0.5,
+        latmax: -90,
+        latmin: 90,
+        longmax: -180,
+        longmin: 180,
         error: null
     }
 
-    UNSAFE_componentWillMount = () => {
-		navigator.geolocation.getCurrentPosition(
-			position => {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-				this.setState({ latitude, longitude});
-			},
-			error => Alert.alert(error.message),
-			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-		);
-	};
-    logout = () => {
-        this.props.navigation.navigate('LoginScreen')
-       //console.log(this.state.list)
+    print = () => {
         
     }
     
+    logout = () => {
+        this.props.navigation.navigate('LoginScreen')        
+    }
+    
 
-    updateList = () => {
+    findmaxmin = (obj) => {
+        // if (obj.latitude>this.state.latmax){
+        //     this.setState({
+        //         latmax : obj.latitude
+        //     }), () => {
+        //         this.print();
+        //       };
+        // }
+        // if (obj.latitude<this.state.latmin){
+        //     this.setState({
+        //         latmin : obj.latitude
+        //     })
+        // }
+        // if (obj.longitude>this.state.longmax){
+        //     this.setState({
+        //         longmax : obj.longitude
+        //     })
+        // }
+        // if (obj.longitude<this.state.longmin){
+        //     this.setState({
+        //         longmin : obj.longitude
+        //     })
+        // }
+        
+        // if (this.state.longmax-this.state.longmin > 1){
+        //     this.setState({
+        //         longdel: this.state.longmax-this.state.longmin
+        //     }), () => {
+        //         this.print();
+        //       };
+        // }
+        // if (this.state.latmax-this.state.latmin > 1){
+        //     this.setState({
+        //         latdel: this.state.latmax-this.state.latmin
+        //     }), () => {
+        //         this.print();
+        //       };
+        // }
+        // this.setState({
+        //     longitude: obj.longitude,
+        //     latitude: obj.latitude
+        // }), () => {
+        //     this.print();
+        //   };
+            
         
     }
 
@@ -59,32 +100,26 @@ export default class HomeScreen extends React.Component {
             route.params = null;
         }
 
-        
-        // console.log("Gay: " + this.state.list);
-        // Geolocation.setRNConfiguration(config);
-        // Geolocation.getCurrentPosition(info => console.log(info));
-        // console.log(this.state.latitude + " " + this.state.longitude);
-        // const obj = JSON.parse(this.state.location)
-        console.log(this.state.latitude + " " + this.state.longitude);
-        // console.log(JSON.parse(this.state.location))
+        const obj = this.state.list
+        console.log(this.state.latdel + " " + this.state.longdel)
+
+        // this.state.list.forEach(this.findmaxmin)
+
+
+
+
         return (
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}
                     initialRegion={{
-                        latitude: this.state.latitude,
-                        longitude: this.state.longitude,
-                        latitudeDelta: 0.009,
-                        longitudeDelta: 0.009
+                        latitude: 37.6219983,
+                        longitude: -122.084,
+                        latitudeDelta: this.state.latdel,
+                        longitudeDelta: this.state.longdel
                     }}>
-                      <Marker
-            coordinate=
-            {{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
-            }}
-            title={'Your Location'}
-            description={'This is where you are'}
-          />
+
+
+
                     {this.state.list.map((object, index) => {
                         return(<Marker
                             key={index}
@@ -120,7 +155,7 @@ export default class HomeScreen extends React.Component {
                     <View hide={true} style = {styles.openModal}>
                     <TouchableOpacity title="openModal" 
                      onPress={() =>
-                        this.props.navigation.navigate('ListModal', {list : this.state.list})}
+                        this.props.navigation.navigate('ListModal', {list : this.state.list}, )}
                     >
                 <Text styles ={styles.openModal}></Text>
                     </TouchableOpacity>

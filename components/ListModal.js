@@ -15,6 +15,7 @@ export default class ListModal extends Component {
     location: 0,
     latitude: 0,
     longitude: 0,
+    totalTime: 0
   }
 
   UNSAFE_componentWillMount = () => {
@@ -114,6 +115,10 @@ export default class ListModal extends Component {
     
     var total = parseInt(params[0])
     var totalTime = parseInt(params[1])
+
+    this.setState({
+      totalTime: totalTime
+    })
     
     for (var i = 1; i < total; i++) {
       // console.log(params[1 + i])

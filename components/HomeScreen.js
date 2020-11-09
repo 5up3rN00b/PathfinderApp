@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Dimensions, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { Linking, StyleSheet, Text, View, Button, Dimensions, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import React, {Component, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -107,10 +107,12 @@ export default class HomeScreen extends React.Component {
 
     render() {
         const { navigation, route } = this.props;
-
-
-
-        var list = this.props.route.params.list;
+        
+        if (typeof this.props.route.params !== 'undefined') {
+            var list = this.props.route.params.list;
+        } else {
+            var list = []
+        }
 
         console.log(list);
 
@@ -131,14 +133,21 @@ export default class HomeScreen extends React.Component {
                     />
                         }
                     {list.map((object, index) => {
-                        return(<Marker
+                        var color = "#ffd1dc";
+                        if (index == 0) {
+                            color = "#7EC0EE";
+                        }
+
+                        return(
+
+                        <Marker
                             key={index}
                             coordinate={{
                               latitude: parseFloat(object.latitude),
                               longitude: parseFloat(object.longitude)
                             }}
                             title={object.value}
-                             pinColor={"#ffd1dc"}
+                             pinColor={color}
                           />)
                     })}
 
@@ -146,16 +155,10 @@ export default class HomeScreen extends React.Component {
                     <ImageBackground source={salmonHeader} style = {styles.header}/>
                 <Image source={cogs} style = {styles.cogs}/>
                 <Image source={locationIcon} style = {styles.locationIcon}/>
+                
                 <Image source={pathFinderTitle} style = {styles.pathFinderTitle}/>
-                <View style={styles.totaltime}>
-                        <Text style={styles.totaltimetext}>Total Time: </Text>
-                </View>
 
-                <View style={styles.nextTime}>
-                        <Text style={styles.nextTimetext}>Time Until Next Stop: </Text>
-                </View>
-                <View style={styles.logout}> 
-                    
+                   <View style={styles.logout}> 
                    <TouchableOpacity title="logout" 
                      onPress={this.logout
                     }
@@ -188,7 +191,8 @@ const styles = StyleSheet.create({
 
       flex: 1,
       backgroundColor: '#fff',
-
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     mapStyle: {
         flex: 1,
@@ -266,38 +270,6 @@ const styles = StyleSheet.create({
             bottom: 0,
             left: 20,
             right: 0,
-    },
-
-    totaltime: {
-        flex: 1,
-        marginTop: 550,
-        marginLeft: 25,
-        backgroundColor: 'white',
-        borderRadius: 15,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        position: "absolute",
-    },
-
-    totaltimetext:{
-        fontSize: 15,
-        textAlign: 'left',
-    },
-
-    nextTime: {
-        flex: 1,
-        marginTop: 600,
-        marginLeft: 25,
-        backgroundColor: 'white',
-        borderRadius: 15,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        position: "absolute",
-    }, 
-
-    nextTimetext:{
-        fontSize: 15,
-        textAlign: 'left',
     },
   });
 

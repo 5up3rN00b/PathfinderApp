@@ -35,9 +35,6 @@ export default class ListModal extends Component {
     })
   }
 
-  print = () => {
-    // console.log(this.state.list)
-  }
 
 
   clearInput = () => {
@@ -60,7 +57,7 @@ export default class ListModal extends Component {
       enteredText: '',
       count: this.state.count + 1,
     }, () => {
-      this.print();
+      // this.print();
     });
 
   }
@@ -100,11 +97,11 @@ export default class ListModal extends Component {
     var size = this.state.data.length
     for (var i = 0; i < size; i++) {
       var element = this.state.data[i]
-      console.log(element);
+      // console.log(element);
       coords.coordinates.push({"latitude": element.latitude, "longitude": element.longitude})
     }
 
-    console.log(coords)
+    // console.log(coords)
 
     postJson("http://9b6cc59b98ed.ngrok.io/calculate.php", coords, this.thenSort);
   }
@@ -112,19 +109,19 @@ export default class ListModal extends Component {
   thenSort = (html) => {
     var params = html.split("|");
 
-    console.log(params)
+    // console.log(params)
     
     var total = parseInt(params[0])
     var totalTime = parseInt(params[1])
     
     for (var i = 1; i < total; i++) {
-      console.log(params[1 + i])
+      // console.log(params[1 + i])
     }
 
     var copy = []
 
     var indexes = params[total + 1].split("");
-    console.log(indexes)
+    // console.log(indexes)
     for (var i = 0; i < total; i++) {
       var index = parseInt(indexes[i])
       copy[i] = this.state.data[index];
@@ -156,7 +153,6 @@ export default class ListModal extends Component {
             style={styles.textstyle}
             placeholder="Enter Address"
             value={this.state.enteredText}
-            editable={true}
             onChangeText={this.inputHandler}
           />
           <View style={styles.button}>

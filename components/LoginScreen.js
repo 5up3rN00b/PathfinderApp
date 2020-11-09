@@ -37,7 +37,7 @@ export default class LoginScreen extends React.Component {
 
   signin = () => {
     console.log(this.state.usernameInput + " " + this.state.passwordInput)
-    postLogin("http://7feebf1b9171.ngrok.io/login.php", this.state.usernameInput, this.state.passwordInput, this.thenLogin);
+    postLogin("http://70608e58fa4f.ngrok.io/login.php", this.state.usernameInput, this.state.passwordInput, this.thenLogin);
     this.props.navigation.navigate('HomeScreen')
   }
 

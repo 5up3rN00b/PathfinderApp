@@ -5,8 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import registerHere from "../assets/registerhere.png";
 import registerImage from "../assets/Group2.png";
 import lock from "../assets/lock.png";
-import restaurantIcon from "../assets/restauranticon.png";
-import restaurantText from "../assets/Restaurant.png";
+import restaurantIcon from "../assets/businessicon.png";
+import restaurantText from "../assets/business.png";
 import UsernameText from "../assets/Username.png";
 import PasswordText from "../assets/Password.png";
 import PersonIcon from "../assets/person.png";
@@ -85,7 +85,7 @@ export default class RegisterScreen extends React.Component {
                 <Image source={restaurantIcon} style={styles.restaurantIcon} />
                 <TextInput
                     style={styles.inputRestaurantText}
-                    placeholder="Restaurant"
+                    placeholder="Business"
                     onChangeText={this.setRestaurant}
                     editable={true}
                 />
@@ -292,8 +292,8 @@ const styles = StyleSheet.create({
     },
 
     restaurantText: {
-        width: 300 / 2.5,
-        height: 90 / 2.5,
+        width:  213 / 3,
+        height: 90 / 3,
         position: "absolute",
         top: 505,
         bottom: 0,

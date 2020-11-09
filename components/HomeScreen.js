@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, Button, Dimensions, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { Linking, StyleSheet, Text, View, Button, Dimensions, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import React, {Component, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
+import MapView, { Polyline, Marker, AnimatedRegion } from 'react-native-maps';
 import * as Permission from 'expo-permissions';
 import * as Location from 'expo-location';
 import ListModal from './ListModal';
@@ -16,15 +16,12 @@ import timeRectangle from "../assets/timerectangle.png";
 
 export default class HomeScreen extends React.Component {
 
-
     constructor(props) {
         super(props);
         this.list = [];
         this.updateList = this.updateList.bind(this)
     }
-
     
-
     state = {
         list : [],
         location: 0,
@@ -101,7 +98,6 @@ export default class HomeScreen extends React.Component {
     // }
 
 
-
     updateList = (l) => {
         console.log(l)
         this.setState({
@@ -148,12 +144,6 @@ export default class HomeScreen extends React.Component {
 
         console.log(this.list);
 
-
-            this.setState({
-                list : route.params.list
-            })
-            route.params = null;
-        }
         return (
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}
@@ -163,7 +153,6 @@ export default class HomeScreen extends React.Component {
                         latitudeDelta: this.state.latdel,
                         longitudeDelta: this.state.longdel
                     }}>
-
                         {this.list != [] &&
                 <MapView.Polyline
                     coordinates={this.list}
@@ -179,16 +168,14 @@ export default class HomeScreen extends React.Component {
 
                         return(
 
-
-                    {this.state.list.map((object, index) => {
-                        return(<Marker
+                        <Marker
                             key={index}
                             coordinate={{
                               latitude: parseFloat(object.latitude),
                               longitude: parseFloat(object.longitude)
                             }}
                             title={object.value}
-                             pinColor={"#ffd1dc"}
+                             pinColor={color}
                           />)
                     })}
 
@@ -206,7 +193,7 @@ export default class HomeScreen extends React.Component {
                 <View style={styles.logout}> 
                     
                    <TouchableOpacity title="logout" 
-                     onPress={this.getGoogleMaps
+                     onPress={this.props.navigation.navigate('LoginScreen')
                     }
                     >
                      <Text styles ={styles.logout}></Text>
@@ -316,7 +303,6 @@ const styles = StyleSheet.create({
             left: 20,
             right: 0,
     },
-
     totaltime: {
         flex: 1,
         marginTop: 600,

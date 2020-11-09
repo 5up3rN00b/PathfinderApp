@@ -138,14 +138,14 @@ export default class ListModal extends Component {
 
   const { navigation, route } = this.props;
         
-        // if (route.params != null && typeof route.params !== 'undefined') {
-        //     // console.log("Params list: " + route.params.list);
+        if (route.params != null && typeof route.params !== 'undefined') {
+            // console.log("Params list: " + route.params.list);
 
-        //     this.setState({
-        //         data : route.params.list
-        //     })
-        //     route.params = null;
-        // }
+            this.setState({
+                data : route.params.list
+            })
+            route.params = null;
+        }
 
     return (
       <View style={styles.inputContainer}>

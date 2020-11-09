@@ -104,11 +104,11 @@ export default class HomeScreen extends React.Component {
         this.setState({
             list : l
         })
-        console.log(this.state.list)
+        // console.log(this.state.list)
     }
 
     getGoogleMaps = () => {
-        console.log(this.list);
+        // console.log(this.list);
         
         var len = this.list.length;
 
@@ -145,7 +145,7 @@ export default class HomeScreen extends React.Component {
             this.totalTime = 0;
         }
 
-        console.log(this.list);
+        console.log(this.totalTime);
 
         return (
             <View style={styles.container}>

@@ -15,6 +15,14 @@ import timeRectangle from "../assets/timerectangle.png";
 
 
 export default class HomeScreen extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+        this.list = [];
+        this.updateList = this.updateList.bind(this)
+    }
+
     
 
     state = {
@@ -93,11 +101,53 @@ export default class HomeScreen extends React.Component {
     // }
 
 
+
+    updateList = (l) => {
+        console.log(l)
+        this.setState({
+            list : l
+        })
+        console.log(this.state.list)
+    }
+
+    getGoogleMaps = () => {
+        console.log(this.list);
+        
+        var len = this.list.length;
+
+        if (len <= 2) return;
+
+        var url = "https://www.google.com/maps/dir/?api=1";
+        url += "&origin=" + this.list[0].latitude + "," + this.list[0].longitude;
+        url += "&destination=" + this.list[len - 1].latitude + "," + this.list[len - 1].longitude;
+        url += "&waypoints=";
+
+        for (var i = 1; i < len - 2; i++) {
+            url += this.list[i].latitude + "," + this.list[i].longitude + "|";
+        }
+        url += this.list[len - 2].latitude + "," + this.list[len - 2].longitude;
+
+        // var url = "https://www.google.com/maps/dir/?api=1&origin=37.564548450000004,-122.01633445935691&destination=37.5248864,-121.96684212858435&waypoints=37.5446746,-121.93565211664193|37.55336735,-121.99381504909599"
+        Linking.canOpenURL(url).then(supported => {
+          if (!supported) {
+            console.log("Cannot open");
+          } else {
+            return Linking.openURL(url);
+          }
+        }).catch(err => console.error("An error occurred", error));
+      }
+
     render() {
         const { navigation, route } = this.props;
         
-        if (route.params != null && typeof route.params !== 'undefined') {
-            // console.log("Params list: " + route.params.list);
+        if (typeof this.props.route.params !== 'undefined') {
+            this.list = this.props.route.params.list;
+        } else {
+            this.list = []
+        }
+
+        console.log(this.list);
+
 
             this.setState({
                 list : route.params.list
@@ -113,6 +163,22 @@ export default class HomeScreen extends React.Component {
                         latitudeDelta: this.state.latdel,
                         longitudeDelta: this.state.longdel
                     }}>
+
+                        {this.list != [] &&
+                <MapView.Polyline
+                    coordinates={this.list}
+                    strokeColor="#7EC0EE"
+                    strokeWidth={7}
+                    />
+                        }
+                    {this.list.map((object, index) => {
+                        var color = "#ffd1dc";
+                        if (index == 0) {
+                            color = "#7EC0EE";
+                        }
+
+                        return(
+
 
                     {this.state.list.map((object, index) => {
                         return(<Marker
@@ -140,7 +206,7 @@ export default class HomeScreen extends React.Component {
                 <View style={styles.logout}> 
                     
                    <TouchableOpacity title="logout" 
-                     onPress={this.logout
+                     onPress={this.getGoogleMaps
                     }
                     >
                      <Text styles ={styles.logout}></Text>

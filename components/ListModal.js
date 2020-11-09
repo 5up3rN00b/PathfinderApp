@@ -3,6 +3,7 @@ import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
 import DraggableFlatList from "react-native-draggable-flatlist";
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
 
 export default class ListModal extends Component {
 
@@ -10,7 +11,22 @@ export default class ListModal extends Component {
     enteredText: '',
     data: [],
     count: 0,
+    location: 0,
+    latitude: 0,
+    longitude: 0,
   }
+
+  UNSAFE_componentWillMount = () => {
+		navigator.geolocation.getCurrentPosition(
+			position => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+				this.setState({ latitude, longitude});
+			},
+			error => Alert.alert(error.message),
+			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+		);
+	};
 
 
   inputHandler = (input) => {
@@ -25,14 +41,22 @@ export default class ListModal extends Component {
 
 
   clearInput = () => {
-    if (this.state.enteredText != "") {
+    if (this.state.enteredText == "My Location"){
+      this.setState({
+        data: [...this.state.data, { id: this.state.count, value: "Your location", latitude: this.state.latitude, longitude: this.state.longitude, key: `item-${Math.random()}` }],
+        count: this.state.count + 1,
+        enteredText : '',
+      })
+    }
+
+    else if (this.state.enteredText != "") {
       post("https://nominatim.openstreetmap.org/search?q=" + this.state.enteredText + "&format=json&limit=1", this.updateList);
     }
   }
 
   updateList = (json, index) => {
     this.setState({
-      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon, key: `item-${Math.random()}` }],
+      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: parseInt(json[0].lat), longitude: parseInt(json[0].lon), key: `item-${Math.random()}` }],
       enteredText: '',
       count: this.state.count + 1,
     }, () => {
@@ -55,7 +79,7 @@ export default class ListModal extends Component {
         onPress={this.removeGoalHandler.bind(this, item.id)}
         style={{
 
-          backgroundColor: isActive ? "blue" : item.backgroundColor,
+          backgroundColor: isActive ? "transparent" : item.backgroundColor,
           alignItems: "center",
           justifyContent: "center"
         }}

@@ -38,6 +38,7 @@ export default class LoginScreen extends React.Component {
   signin = () => {
     console.log(this.state.usernameInput + " " + this.state.passwordInput)
     postLogin("http://7feebf1b9171.ngrok.io/login.php", this.state.usernameInput, this.state.passwordInput, this.thenLogin);
+    this.props.navigation.navigate('HomeScreen')
   }
 
   thenLogin = (html) => {
@@ -48,6 +49,12 @@ export default class LoginScreen extends React.Component {
     } else {
       this.props.navigation.navigate('RegisterScreen')
     }
+
+    this.setState({
+      usernameInput: '',
+      passwordInput: '',
+    })
+
   }
 
   render() {
@@ -145,7 +152,7 @@ async function postLogin(url, email, password, then) {
 
   then(html);
 
-  console.log("Gayer: " + html);
+  // console.log("Gayer: " + html);
 }
 
 const styles = StyleSheet.create({

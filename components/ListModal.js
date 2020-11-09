@@ -2,11 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal, Image, ImageBackground } from 'react-native';
-import locationsLogo from "../assets/Locations.png";
-import home from "../assets/home.png";
-import salmonHeader from "../assets/salmonHeader.png";
-
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
+import HomeScreen from './HomeScreen';
 
 export default class ListModal extends Component {
 
@@ -14,8 +12,23 @@ export default class ListModal extends Component {
     enteredText: '',
     data: [],
     count: 0,
-    
+    location: 0,
+    latitude: 0,
+    longitude: 0,
+    totalTime: 0
   }
+
+  UNSAFE_componentWillMount = () => {
+		navigator.geolocation.getCurrentPosition(
+			position => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+				this.setState({ latitude, longitude});
+			},
+			error => Alert.alert(error.message),
+			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+		);
+	};
 
 
   inputHandler = (input) => {
@@ -24,24 +37,29 @@ export default class ListModal extends Component {
     })
   }
 
-  print = () => {
-    // console.log(this.state.list)
-  }
 
 
   clearInput = () => {
-    if (this.state.enteredText != "") {
+    if (this.state.enteredText == "My Location"){
+      this.setState({
+        data: [...this.state.data, { id: this.state.count, value: "Your location", latitude: this.state.latitude, longitude: this.state.longitude, key: `item-${Math.random()}` }],
+        count: this.state.count + 1,
+        enteredText : '',
+      })
+    }
+
+    else if (this.state.enteredText != "") {
       post("https://nominatim.openstreetmap.org/search?q=" + this.state.enteredText + "&format=json&limit=1", this.updateList);
     }
   }
 
   updateList = (json, index) => {
     this.setState({
-      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: json[0].lat, longitude: json[0].lon, key: `item-${this.state.count}` }],
+      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: parseFloat(json[0].lat), longitude: parseFloat(json[0].lon), key: `item-${Math.random()}` }],
       enteredText: '',
       count: this.state.count + 1,
     }, () => {
-      this.print();
+      // this.print();
     });
 
   }
@@ -60,20 +78,65 @@ export default class ListModal extends Component {
         onPress={this.removeGoalHandler.bind(this, item.id)}
         style={{
 
-          backgroundColor: isActive ? "blue" : item.backgroundColor,
+          backgroundColor: isActive ? "transparent" : item.backgroundColor,
           alignItems: "center",
           justifyContent: "center"
         }}
         onLongPress={drag}
       >
         <View style={styles.listItem}>
-          <Text>{item.value}</Text>
+          <Text style={styles.listText}>{item.value}</Text>
 
         </View>
       </TouchableOpacity>
 
     );
   };
+
+  sortHandler = () => {
+    var coords = {"coordinates": []}
+
+    var size = this.state.data.length
+    for (var i = 0; i < size; i++) {
+      var element = this.state.data[i]
+      // console.log(element);
+      coords.coordinates.push({"latitude": element.latitude, "longitude": element.longitude})
+    }
+
+    // console.log(coords)
+
+    postJson("http://70608e58fa4f.ngrok.io/calculate.php", coords, this.thenSort);
+  }
+
+  thenSort = (html) => {
+    var params = html.split("|");
+
+    // console.log(params)
+    
+    var total = parseInt(params[0])
+    var totalTime = parseInt(params[1])
+
+    this.setState({
+      totalTime: totalTime
+    })
+    
+    for (var i = 1; i < total; i++) {
+      // console.log(params[1 + i])
+    }
+
+    var copy = []
+
+    var indexes = params[total + 1].split("");
+    // console.log(indexes)
+    for (var i = 0; i < total; i++) {
+      var index = parseInt(indexes[i])
+      copy[i] = this.state.data[index];
+    }
+
+    this.setState({
+      data : copy
+    })
+  }
 
   render() {
 
@@ -91,22 +154,11 @@ export default class ListModal extends Component {
 
     return (
       <View style={styles.inputContainer}>
-        <ImageBackground source={salmonHeader} style = {styles.header}/>
-                <Image source={locationsLogo} style = {styles.locationsLogo}/>
-                <Image source={home} style = {styles.home}/>
-                <TouchableOpacity title="back to home" onPress={() =>
-                this.props.navigation.navigate('HomeScreen')  
-                } style={styles.home} >
-                <Text style={styles.text}></Text>
-                </TouchableOpacity>
         <View style={styles.row}>
-  
-
           <TextInput
             style={styles.textstyle}
             placeholder="Enter Address"
             value={this.state.enteredText}
-            editable={true}
             onChangeText={this.inputHandler}
           />
           <View style={styles.button}>
@@ -118,7 +170,7 @@ export default class ListModal extends Component {
           </View>
         </View>
 
-        <View style={styles.liststyle}>
+        <View style={{ flex: 1 }}>
 
           <DraggableFlatList
             data={this.state.data}
@@ -131,14 +183,26 @@ export default class ListModal extends Component {
 
         <View style={styles.row}>
 
-          <TouchableOpacity title="Save" onPress={() =>
-            this.props.navigation.navigate('HomeScreen')  
-          } style={[styles.buttons, styles.save]} >
+          
+
+          <TouchableOpacity title="Save" onPress={() => {
+            this.props.navigation.navigate('HomeScreen', {list : this.state.data});
+          }    
+          } style={[styles.buttons, styles.button]} >
             <Text style={styles.text}>SAVE</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity 
+            title="Sort"
+            style={[styles.buttons, styles.button]}
+            onPress={this.sortHandler} >
+            <Text style={styles.text}>SORT</Text>
+          </TouchableOpacity>
+
+
           {/* Doesnt actually save it */}
         </View>
+        {/* <HomeScreen ref={ref => (this._HomeScreen = ref)} /> */}
       </View>
 
     )
@@ -159,6 +223,23 @@ async function post(url, then) {
   // console.log(html);
 }
 
+async function postJson(url, json, then) {
+  // const url = 'https://www.compcs.codes';
+  const response = await fetch(url, {
+    method: 'POST',
+    header: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(json)
+  });
+
+  const html = await response.text();
+
+  then(html);
+
+  // console.log(html);
+}
+
 const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
@@ -166,26 +247,11 @@ const styles = StyleSheet.create({
   },
 
   liststyle: {
-    flex: 5,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: "center",
     alignContent: "center",
     paddingHorizontal: 30,
-    width: '100%',
-    height: '60%',
-    marginTop: 170,
-    position: "absolute",
-  },
-
-  save: {
-    flex: 10,
-    paddingHorizontal: 30,
-    width: 100,
-    height: 40,
-    marginTop: 230,
-    position: "absolute",
-    top: 0,
   },
   textstyle: {
     borderRadius: 20,
@@ -204,7 +270,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
      alignItems: "center",
       width: '90%',
-      marginVertical: 120,
+      marginVertical: 30,
   },
   text: {
     color: 'white',
@@ -224,7 +290,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   listItem: {
-  
+    
     padding: 15,
     borderRadius: 30,
     backgroundColor: '#F19C79',
@@ -279,4 +345,3 @@ listText: {
 
 
 });
-

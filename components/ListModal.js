@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import DraggableFlatList from "react-native-draggable-flatlist";
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, FlatList, Modal } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
+import HomeScreen from './HomeScreen';
 
 export default class ListModal extends Component {
 
@@ -53,7 +54,7 @@ export default class ListModal extends Component {
 
   updateList = (json, index) => {
     this.setState({
-      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: parseInt(json[0].lat), longitude: parseInt(json[0].lon), key: `item-${Math.random()}` }],
+      data: [...this.state.data, { id: this.state.count, value: json[0].display_name, latitude: parseFloat(json[0].lat), longitude: parseFloat(json[0].lon), key: `item-${Math.random()}` }],
       enteredText: '',
       count: this.state.count + 1,
     }, () => {
@@ -179,8 +180,9 @@ export default class ListModal extends Component {
 
           
 
-          <TouchableOpacity title="Save" onPress={() =>
-            this.props.navigation.navigate('HomeScreen', {list : this.state.data})    
+          <TouchableOpacity title="Save" onPress={() => {
+            this.props.navigation.navigate('HomeScreen', {list : this.state.data});
+          }    
           } style={[styles.buttons, styles.button]} >
             <Text style={styles.text}>SAVE</Text>
           </TouchableOpacity>
@@ -195,6 +197,7 @@ export default class ListModal extends Component {
 
           {/* Doesnt actually save it */}
         </View>
+        {/* <HomeScreen ref={ref => (this._HomeScreen = ref)} /> */}
       </View>
 
     )

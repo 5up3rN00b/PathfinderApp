@@ -11,13 +11,16 @@ import cogs from "../assets/cogs.png";
 import salmonHeader from "../assets/salmonHeader.png";
 import locationIcon from "../assets/locationicon.png";
 import timeRectangle from "../assets/timerectangle.png";
-import './Global.js'
 
 
 
 export default class HomeScreen extends React.Component {
-    
 
+    constructor(props) {
+        super(props);
+        this.updateList = this.updateList.bind(this)
+    }
+    
     state = {
         list : [],
         location: 0,
@@ -100,22 +103,16 @@ export default class HomeScreen extends React.Component {
             list : l
         })
         console.log(this.state.list)
-        this.props.route.params = null
     }
 
     render() {
         const { navigation, route } = this.props;
-        
-        if (route.params != null && typeof route.params !== 'undefined') {
-            // console.log("Params list: " + route.params.list);
-            console.log(route.params.list)
-
-            this.updateList(route.params.list)
-        }
 
 
 
+        var list = this.props.route.params.list;
 
+        console.log(list);
 
         return (
             <View style={styles.container}>
@@ -126,14 +123,14 @@ export default class HomeScreen extends React.Component {
                         latitudeDelta: this.state.latdel,
                         longitudeDelta: this.state.longdel
                     }}>
-                        {this.state.list != [] &&
+                        {list != [] &&
                 <MapView.Polyline
-                    coordinates={this.state.list}
-                    strokeColor="#ffd1dc"
-                    strokeWidth={6}
+                    coordinates={list}
+                    strokeColor="#7EC0EE"
+                    strokeWidth={7}
                     />
                         }
-                    {this.state.list.map((object, index) => {
+                    {list.map((object, index) => {
                         return(<Marker
                             key={index}
                             coordinate={{
@@ -168,7 +165,7 @@ export default class HomeScreen extends React.Component {
                     <View hide={true} style = {styles.openModal}>
                     <TouchableOpacity title="openModal" 
                      onPress={() =>
-                        this.props.navigation.navigate('ListModal', {list : this.state.list}, )}
+                        this.props.navigation.navigate('ListModal')}
                     >
                 <Text styles ={styles.openModal}></Text>
                     </TouchableOpacity>

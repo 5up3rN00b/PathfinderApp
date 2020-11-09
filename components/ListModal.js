@@ -186,7 +186,7 @@ export default class ListModal extends Component {
           
 
           <TouchableOpacity title="Save" onPress={() => {
-            this.props.navigation.navigate('HomeScreen', {list : this.state.data});
+            this.props.navigation.navigate('HomeScreen', {list : this.state.data, totalTime: this.state.totalTime});
           }    
           } style={[styles.buttons, styles.button]} >
             <Text style={styles.text}>SAVE</Text>

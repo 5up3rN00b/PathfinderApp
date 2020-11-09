@@ -19,6 +19,7 @@ export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.list = [];
+        this.totalTime = 0;
         this.updateList = this.updateList.bind(this)
     }
     
@@ -138,8 +139,10 @@ export default class HomeScreen extends React.Component {
         
         if (typeof this.props.route.params !== 'undefined') {
             this.list = this.props.route.params.list;
+            this.totalTime = this.props.route.params.totalTime;
         } else {
             this.list = []
+            this.totalTime = 0;
         }
 
         console.log(this.list);
